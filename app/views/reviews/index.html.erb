@@ -1,0 +1,15 @@
+<h1>レビュー一覧</h1>
+<p><%= notice %></p>
+
+<table>
+<% @review.each do |review| %>
+  <tr>
+    <td><%= review.title %></td>
+    <td><%= link_to '詳細を確認する', review_path(review.id) %></td>
+    <td><%= link_to "編集する", edit_review_path(review.id) %></td>
+    <td><%= link_to 'ブログを削除する', review_path(review.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %>
+  </tr>
+<% end %>
+<%= paginate @review %>
+</table>
+<%= link_to 'レビュー作成', new_review_path %>

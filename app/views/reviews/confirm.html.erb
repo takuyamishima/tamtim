@@ -1,0 +1,29 @@
+<h3>以下の内容で、送信する。</h3>
+
+<%= form_with(model: @review, url: reviews_path, local: true) do |form| %>
+
+  <%= form.hidden_field :title %>
+  <%= form.hidden_field :content %>
+  <%= form.hidden_field :user_id %>
+  <%= form.hidden_field :image_cache %>
+
+  <p>タイトル:<%= @review.title %></p>
+  <p>本文:<%= @review.content %></p>
+    <p>本文:<%= @review.user_id %></p>
+  <!-- 確認画面でアップロードした画像を表示させるための記述 -->
+  <% unless @review.image.blank? %>
+    <%= image_tag(@review.image.url) %>   
+  <% else %>
+     <%= image_tag '/no_img.png' %>
+  <% end %>
+  <%= form.submit  "登録する" %>
+<% end %>
+
+<%= form_with(model: @review, url: new_review_path, local: true, method: 'get') do |form| %>
+  <%= form.hidden_field :title %>
+  <%= form.hidden_field :content %>
+  <%= form.hidden_field :user_id %>
+  <%= form.hidden_field :image_cache %>
+
+  <%= form.submit  "もどる", name: 'back' %>
+<% end %>

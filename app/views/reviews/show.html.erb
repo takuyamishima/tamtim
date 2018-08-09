@@ -1,0 +1,30 @@
+<p><%= link_to @post_user.name, user_path(id: @post_user.id) %></p>
+<p><%= image_tag(@post_user.icon.url, :size =>'100x100') %></p>
+<p>投稿日時: <%= @review.created_at.strftime("%Y年%m月%d日") %></p>
+<p><h1><%= @review.title %></h1></p>
+<p><%= @review.content %></p>
+<p id="notice"><%= notice %></p>
+<p>
+<% unless @review.image.blank? %>
+  <%= image_tag(@review.image.url) %>
+<% else %>
+  <%= image_tag '/no_img.png' %>
+<% end %>
+</p>
+<% unless @review.user_id == current_user.id %>
+  <% if @favorite.present? %>
+    <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
+  <% else %>
+    <%= link_to 'お気に入りする', favorites_path(review_id: @review.id), method: :post, class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
+
+<ul class="shareList">
+  <li class="shareList__item"><a class="shareList__link icon-twitter" href="https://twitter.com/share?url=<%= request.url %>" target="_blank" title="Twitter"></a></li>
+  <li class="shareList__item"><a class="shareList__link icon-facebook" href="https://www.facebook.com/share.php?url=<%= request.url %>" target="_blank" title="Facebook"></a></li>
+  <li class="shareList__item"><a class="shareList__link icon-hatebu" href="//b.hatena.ne.jp/add?mode=confirm&url=<%= request.url %>" target="_blank" title="はてなブックマーク"></a></li>
+  <li class="shareList__item"><a class="shareList__link icon-line" href="http://line.me/R/msg/text/?<%= request.url %>" target="_blank" title="LINE"></a></li>
+</ul>
+
+<%= link_to 'Edit', edit_review_path(@review) %> |
+<%= link_to 'Back', reviews_path %>

@@ -1,0 +1,35 @@
+<%= form_with(model: @review, local: true ,url: choose_new_or_edit) do |form| %>
+  <% if @review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @review.errors.count %>件のエラーがあります。</h2>
+      <ul>
+
+      <% @review.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="blog_title">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div class="blog_title">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+
+<div class="field">
+  <%= form.label :image %>
+  <!-- 確認画面から新規作成画面に戻った時に、 -->
+  <!-- アップロードした画像を表示させるための記述 -->
+  <%= image_tag(@review.image.url) if @review.image.url %>
+  <%= form.file_field :image, id: :review_image %>
+</div>
+
+
+  <%= form.submit %>
+
+<% end %>
+

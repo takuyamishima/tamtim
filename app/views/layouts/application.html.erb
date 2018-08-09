@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tamtim</title>
+    <title>Tamtimda</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
 
-  <body>
+<header class="header">
+<nav class="menu">
+    <ul>
+        <li><%= link_to "TOP", "/" %></li>
+        <li><%= link_to 'レビュー一覧', reviews_path %></li>
+        <li><%= link_to "ユーザー作成", new_user_registration_path %></li>
+      <% if user_signed_in? %>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <li><%= link_to 'レビュー作成', new_review_path %></li>
+      <% end %>
+    </ul>
+</nav>
+</header>
+<%= breadcrumbs pretext: "", separator: " &rsaquo; " %>
     <%= yield %>
+
+  <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
   </body>
 </html>

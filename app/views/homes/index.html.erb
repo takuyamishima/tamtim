@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Achieve</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
+</head><body>
+
+  <section class="main-header">
+
+
+  </section>
+<h1>レビュアー一覧</h1>
+
+<div class="function-images">
+ <div class="function-image">
+    <% @users.each do |user| %>
+      <li>
+        <%= link_to user.name, user %>
+        <% unless user.icon.blank? %>
+          <td><%= link_to image_tag(user.icon.url, :size =>'100x100'), users_path(user.id) %></td>   
+        <% else %>
+          <td><%= link_to image_tag('/no_img.png', :size =>'100x100'), users_path(user.id) %></td>
+        <% end %>
+      </li>
+    <% end %>
+ </div>
+</div>
+
+<h1>レビュ一覧</h1>
+<div class="function-images">
+ <div class="function-image">
+<% @review.each do |review| %>
+<td><%= link_to review.title , review_path(review.id) %></td>
+ <% unless review.image.blank? %>
+    <td><%= link_to image_tag(review.image.url, :size =>'100x100'), review_path(review.id) %></td>   
+  <% else %>
+     <td><%= link_to image_tag('/no_img.png', :size =>'100x100'), review_path(review.id) %></td>
+  <% end %>
+<% end %>
+ </div>
+</div>
+
+  <section class="about">
+    <h1>図書館アプリ</h1>
+  </section>
+  <section class="function">
+    <h1>使い方</h1>
+    <div class="function-images">
+      <div class="function-image">
+        
+        <p>1.登録する</br>アプリの利用には会員登録が必要です。</p>
+      </div>
+      <div class="function-image">
+        
+        <p>2.本を探す</br>借りたい本があるかどうか検索してください。</p>
+      </div>
+      <div class="function-image">
+        
+        <p>３.予約する</br>借りたい本が見つかったら予約してください。</p>
+      </div>
+      <div class="function-image">
+        
+        <p>4.リクエストする</br>借りたい本がない場合、リクエストを送信してください。</p>
+      </div>
+    </div>
+  </section>
+  <footer>
+  </footer>
+</body>
+</html>
+
