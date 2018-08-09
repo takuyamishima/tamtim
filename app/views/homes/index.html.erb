@@ -18,10 +18,12 @@
     <% @users.each do |user| %>
       <li>
         <%= link_to user.name, user %>
-        <% unless user.icon.blank? %>
-          <td><%= link_to image_tag(user.icon.url, :size =>'100x100'), users_path(user.id) %></td>   
+        <% if user.provider == "facebook" %>
+          <td><%= link_to image_tag(user.icon.url, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), users_path(user.id) %></td>   
+        <% elsif user.avator %>
+          <td><%= link_to image_tag(user.avator.url, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), users_path(user.id) %></td>   
         <% else %>
-          <td><%= link_to image_tag('/no_img.png', :size =>'100x100'), users_path(user.id) %></td>
+          <td><%= link_to image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), users_path(user.id) %></td>
         <% end %>
       </li>
     <% end %>
