@@ -1,0 +1,45 @@
+/*shareボタンstyle
+/************************************************************/
+
+.shareList {
+	list-style:none;
+	display: flex;
+	flex-wrap:wrap;
+	width:100%;
+	margin:-5px 0 -4px -5px;
+	padding:0;
+}
+.shareList__item {
+	height:30px;
+	line-height:30px;
+	width:30px;
+	margin:5px 0 4px 5px;
+	text-align:center;
+}
+.shareList__link {
+	display:block;
+	color:#ffffff;
+	text-decoration: none;
+	border-radius: 5px;
+}
+.shareList__link::before{
+	font-size:16px;
+	display:block;
+	transition:.2s;
+}
+.shareList__link:hover{opacity: 0.75;}
+
+.shareList__link.icon-twitter{background:#55acee; border-bottom: solid 4px rgba(0,0,0,0.25);}
+
+.shareList__link.icon-facebook{background:#3B5998; border-bottom: solid 4px rgba(0,0,0,0.25);}
+
+.shareList__link.icon-hatebu{background:#008FDE; border-bottom: solid 4px rgba(0,0,0,0.25);}
+
+.shareList__link.icon-line{background:#1dcd00; border-bottom: solid 4px rgba(0,0,0,0.25);}
+
+.shareList__link:active {
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    border-bottom: none;
+}
