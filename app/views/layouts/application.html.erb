@@ -1,14 +1,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tamtim</title>
+    <title>Tamtimda</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
 
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+
+      <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">timtam</a>
+          </div>
+          <div class="collapse navbar-collapse" id="custom-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">メニュー</a>
+                <ul class="dropdown-menu">
+                <% if user_signed_in? %>
+                  <li><%= link_to "TOP", "/" %></li>
+                  <li><%= link_to 'レビュー一覧', reviews_path %></li>
+                  <li><%= link_to 'レビュー作成', new_review_path, data: { turbolinks: false } %></li>
+                  <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+                  <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                <% else %>
+                  <li><%= link_to "TOP", "/" %></li>
+                  <li><%= link_to 'レビュー一覧', reviews_path %></li>
+                  <li><%= link_to "ログイン", new_user_session_path %></li>
+                  <li><%= link_to "ユーザー作成", new_user_registration_path %></li>
+                <% end %>
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+<!-- パンくずリスト -->
+<%= breadcrumbs pretext: "", separator: " &rsaquo; " %>
+
   <body>
-    <%= yield %>
+    <%= notice %>
+    <%= alert %>
+<%= yield %>
   </body>
 </html>

@@ -1,0 +1,20 @@
+
+</br>
+</br>
+</br>
+</br>
+
+ <% @user.followers.each do |user| %>
+<table>
+<tr>
+  <td>  <%= user.id %> </td>
+  <td><%= link_to '詳細', user_path(user) %></td>
+</tr>
+
+</table>
+<% end %>
+
+<td>  <%= @review.title %> </td>
+<% @users.reviews.each do |review| %>
+<%= review.title %>
+<% end %>
