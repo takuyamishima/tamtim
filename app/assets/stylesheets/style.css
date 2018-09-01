@@ -1499,6 +1499,12 @@ General Styles - Owlcarousel
   margin-top: -145px;
 }
 
+.fit-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
 .shop-page-header:before {
   background: rgba(34, 34, 34, 0.3);
 }
@@ -1554,7 +1560,7 @@ Google map
   line-height: 1.2;
   font-size: 42px;
   color: #111;
-  
+
     display: inline-block;
     background-color: #ffffff;
     background-position: center center;
@@ -1562,9 +1568,9 @@ Google map
     margin: 5px;
     width: 100px;
     height: 100px;
-    border: 1px solid #ccc;
+    border: 0px solid #ccc;
     background-size: cover;
-  
+
 }
 
 .features-title,
@@ -2199,17 +2205,9 @@ Google map
 .post-images-slider,
 .post-video {
   margin: 0 0 20px;
-
-    display: inline-block;
-    background-color: #ffffff;
-    background-position: center center;
-    background-repeat: no-repeat;
-    margin: 5px;
-    width: 100px;
-    height: 100px;
-    border: 1px solid #ccc;
-    background-size: cover;
-  
+  width: 100px;
+  height: 100px;
+  object-fit: cover; /* この一行を追加するだけ！ */
 }
 
 .post-quote {

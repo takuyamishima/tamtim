@@ -28,7 +28,11 @@
       <%= f.file_field :avator, id: :user_avator %>
     <% end %>
   </div>
-
+  
+  <div class="field">
+    <%= f.label :profile %>
+    <%= f.text_field :profile %>
+  </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

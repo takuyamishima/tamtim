@@ -3,7 +3,8 @@
 <%= form_for(current_user, html: { method: :patch }) do |f| %>
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+    <%= f.text_field :name, autofocus: true %><br/>
+    <%= f.text_field :profile %>
   </div>
 
   <div class="actions">

@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  get 'users/index'
-  get 'users/show'
   delete 'users/delete/:id', to: 'users#destroy', as: 'users/destroy'
   get '/', to: 'homes#index', as: 'root'   #追記する
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  resources :users, :only => [:index, :show]
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', :registrations => "users/registrations" }
+  resources :users, only: [:index, :show], as: 'users'
   get '/reviews', to: 'reviews#index'
   resources :favorites, only: [:create, :destroy]
   resources :reviews do
@@ -20,5 +18,9 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships,       only: [:create, :destroy]
+  
+  resources :reviews do
+    resources :comments
+  end
   
 end

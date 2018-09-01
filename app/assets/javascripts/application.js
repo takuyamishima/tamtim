@@ -12,6 +12,7 @@
 //
 //= require rails-ujs
 //= require jquery/dist/jquery.js
+//= require jquery-ui
 //= require bootstrap/dist/js/bootstrap.min
 //= require ckeditor/init
 //= require turbolinks

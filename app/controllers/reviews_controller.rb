@@ -30,8 +30,14 @@ class ReviewsController < ApplicationController
   end
 
   def show
-    @favorite = current_user.favorites.find_by(review_id: @review.id)
+    @review = Review.find(params[:id])
+    if current_user
+     @favorite = current_user.favorites.find_by(review_id: @review.id)
+    end
     @post_user = @review.user
+    @comment = Comment.new #①
+    @comments = @review.comments #②
+    @comments_number = @comments.count
   end
 
   def edit
@@ -58,7 +64,7 @@ class ReviewsController < ApplicationController
 
   private
   def review_params
-    params.require(:review).permit(:title, :content, :user_id, :name, :image, :image_cache, :draft)
+    params.require(:review).permit(:title, :content, :user_id, :name, :image, :image_cache, :draft, :comment_content, :review_id)
   end
 
   def set_review

@@ -1,171 +1,75 @@
-<section class="module-small">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8">
-        <div class="post">
-          <div class="post-thumbnail">
-              <% if (@post_user.provider == "facebook") %>
-                <% @post_user.icon = @post_user.icon.insert(4,"s") %>
-                <%= image_tag @post_user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100" %>
-              <% elsif @post_user.avator %>
-                <%= image_tag(@post_user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100") %>
-              <% else %>
-                <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100") %>
-              <% end %>
-          </div>
-          <div class="post-header font-alt">
-            <h1 class="post-title"><%= @review.title %></h1>
-            <div class="post-meta">By&nbsp;<%= link_to @post_user.name, user_path(id: @post_user.id) %>
-              投稿日時: <%= @review.created_at.strftime("%Y年%m月%d日") %>
-              <a href="#">Photography, </a>
-              <a href="#">Web Design</a>
-            </div>
-          </div>
-          <div class="post-entry">
-            <%== @review.content %>
-            <%= image_tag(@review.image.to_s, :size =>'100x100') if @review.image.to_s %>
-            <ul class="shareList">
-              <li class="shareList__item"><a class="shareList__link icon-twitter" href="https://twitter.com/share?url=<%= request.url %>" target="_blank" title="Twitter"></a></li>
-              <li class="shareList__item"><a class="shareList__link icon-facebook" href="https://www.facebook.com/share.php?url=<%= request.url %>" target="_blank" title="Facebook"></a></li>
-              <li class="shareList__item"><a class="shareList__link icon-hatebu" href="//b.hatena.ne.jp/add?mode=confirm&url=<%= request.url %>" target="_blank" title="はてなブックマーク"></a></li>
-              <li class="shareList__item"><a class="shareList__link icon-line" href="http://line.me/R/msg/text/?<%= request.url %>" target="_blank" title="LINE"></a></li>
-            </ul>
+        <section class="module-small">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="post">
+                  <div class="post-header font-alt">
+                    <h1><%= @review.title %></h1>
+                    <div class="post-meta">By&nbsp;<%= link_to @post_user.name, user_path(id: @post_user.id) %>
+                    投稿日時: <%= @review.created_at.strftime("%Y年%m月%d日") %>
+                    <a href="#">Photography, </a>
+                    <a href="#">Web Design</a>
+                    </div>
+                  </div>
+                  <div class="post-entry">
+                    <%== @review.content %>
+                    <!--サムネイル用画像のためコメントアウト <%= image_tag(@review.image.to_s, :size =>'100x100') if @review.image.to_s %> -->
+<% if user_signed_in? %>
+<% unless @review.user_id == current_user.id %>
+  <% if @favorite.present? %>
+  <p><button class="btn btn-d btn-circle" type="submit">
+    <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete,:style=>"color:white;"%>
+  </button></p>
+  <% else %>
+  <p><button class="btn btn-d btn-circle" type="submit"><i class="fa fa-heart"></i>
+    <%= link_to 'お気に入り登録する', favorites_path(review_id: @review.id), method: :post,:style=>"color:white;" %>
+</button></p>
+  <% end %>
+<% else %>
+<% end %>
+<% end %>
 
-            <% unless @review.user_id == current_user.id %>
-              <% if @favorite.present? %>
-                <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
-              <% else %>
-                <%= link_to 'お気に入りする', favorites_path(review_id: @review.id), method: :post, class: 'btn btn-primary' %>
-              <% end %>
-            <% end %>
 
-            <%= link_to 'Edit', edit_review_path(@review), data: { turbolinks: false } %> |
-            <%= link_to 'Back', reviews_path %>
-          </div>
-        </div>
-        <div class="comments">
-          <h4 class="comment-title font-alt">There are 3 comments</h4>
-          <div class="comment clearfix">
-            <div class="comment-avatar"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/ryanbattles/128.jpg" alt="avatar"/></div>
-            <div class="comment-content clearfix">
-              <div class="comment-author font-alt"><a href="#">John Doe</a></div>
-              <div class="comment-body">
-                <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The European languages are members of the same family. Their separate existence is a myth.</p>
-              </div>
-              <div class="comment-meta font-alt">Today, 14:55 - <a href="#">Reply</a></div>
-            </div>
-            <div class="comment clearfix">
-              <div class="comment-avatar"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/draganbabic/128.jpg" alt="avatar"/></div>
-              <div class="comment-content clearfix">
-                <div class="comment-author font-alt"><a href="#">Mark Stone</a></div>
-                <div class="comment-body">
-                  <p>Europe uses the same vocabulary. The European languages are members of the same family. Their separate existence is a myth.</p>
-                </div>
-                <div class="comment-meta font-alt">Today, 15:34 - <a href="#">Reply</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="comment clearfix">
-            <div class="comment-avatar"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/pixeliris/128.jpg" alt="avatar"/></div>
-            <div class="comment-content clearfix">
-              <div class="comment-author font-alt"><a href="#">Andy</a></div>
-              <div class="comment-body">
-                <p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The European languages are members of the same family. Their separate existence is a myth.</p>
-              </div>
-              <div class="comment-meta font-alt">Today, 14:59 - <a href="#">Reply</a></div>
-            </div>
-          </div>
-        </div>
-        <div class="comment-form">
-          <h4 class="comment-form-title font-alt">Add your comment</h4>
-          <form method="post">
-            <div class="form-group">
-              <label class="sr-only" for="name">Name</label>
-              <input class="form-control" id="name" type="text" name="name" placeholder="Name"/>
-            </div>
-            <div class="form-group">
-              <label class="sr-only" for="email">Name</label>
-              <input class="form-control" id="email" type="text" name="email" placeholder="E-mail"/>
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" id="comment" name="comment" rows="4" placeholder="Comment"></textarea>
-            </div>
-            <button class="btn btn-round btn-d" type="submit">Post comment</button>
-          </form>
-        </div>
-      </div>
-      <div class="col-sm-4 col-md-3 col-md-offset-1 sidebar">
-        <div class="widget">
-          <form role="form">
-            <div class="search-box">
-              <input class="form-control" type="text" placeholder="Search..."/>
-              <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-            </div>
-          </form>
-        </div>
-        <div class="widget">
-          <h5 class="widget-title font-alt">Blog Categories</h5>
-          <ul class="icon-list">
-            <li><a href="#">Photography - 7</a></li>
-            <li><a href="#">Web Design - 3</a></li>
-            <li><a href="#">Illustration - 12</a></li>
-            <li><a href="#">Marketing - 1</a></li>
-            <li><a href="#">Wordpress - 16</a></li>
-          </ul>
-        </div>
-        <div class="widget">
-          <h5 class="widget-title font-alt">Popular Posts</h5>
-          <ul class="widget-posts">
-            <li class="clearfix">
-              <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
-              <div class="widget-posts-body">
-                <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                <div class="widget-posts-meta">23 january</div>
-              </div>
-            </li>
-            <li class="clearfix">
-              <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
-              <div class="widget-posts-body">
-                <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                <div class="widget-posts-meta">15 February</div>
-              </div>
-            </li>
-            <li class="clearfix">
-              <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-3.jpg" alt="Post Thumbnail"/></a></div>
-              <div class="widget-posts-body">
-                <div class="widget-posts-title"><a href="#">Eco bag Mockup</a></div>
-                <div class="widget-posts-meta">21 February</div>
-              </div>
-            </li>
-            <li class="clearfix">
-              <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-4.jpg" alt="Post Thumbnail"/></a></div>
-              <div class="widget-posts-body">
-                <div class="widget-posts-title"><a href="#">Bottle Mockup</a></div>
-                <div class="widget-posts-meta">2 March</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="widget">
-          <h5 class="widget-title font-alt">Tag</h5>
-          <div class="tags font-serif">
-            <a href="#" rel="tag">Blog</a><a href="#" rel="tag">Photo</a><a href="#" rel="tag">Video</a><a href="#" rel="tag">Image</a><a href="#" rel="tag">Minimal</a><a href="#" rel="tag">Post</a><a href="#" rel="tag">Theme</a><a href="#" rel="tag">Ideas</a><a href="#" rel="tag">Tags</a><a href="#" rel="tag">Bootstrap</a><a href="#" rel="tag">Popular</a><a href="#" rel="tag">English</a>
-          </div>
-        </div>
-        <div class="widget">
-          <h5 class="widget-title font-alt">Text</h5>The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
-        </div>
-        <div class="widget">
-          <h5 class="widget-title font-alt">Recent Comments</h5>
-          <ul class="icon-list">
-            <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-            <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-            <li>Andy on <a href="#">Eco bag Mockup</a></li>
-            <li>Jack on <a href="#">Bottle Mockup</a></li>
-            <li>Mark on <a href="#">Our trip to the Alps</a></li>
-          </ul>
-        </div>
-      </div>
+<ul class="shareList">
+  <li class="shareList__item"><a class="shareList__link icon-twitter" href="https://twitter.com/share?url=<%= request.url %>" target="_blank" title="Twitter"></a></li>
+  <li class="shareList__item"><a class="shareList__link icon-facebook" href="https://www.facebook.com/share.php?url=<%= request.url %>" target="_blank" title="Facebook"></a></li>
+  <li class="shareList__item"><a class="shareList__link icon-hatebu" href="//b.hatena.ne.jp/add?mode=confirm&url=<%= request.url %>" target="_blank" title="はてなブックマーク"></a></li>
+  <li class="shareList__item"><a class="shareList__link icon-line" href="http://line.me/R/msg/text/?<%= request.url %>" target="_blank" title="LINE"></a></li>
+</ul>
+<% if user_signed_in? %><% unless @review.user_id == current_user.id %>
+<%= link_to 'Edit', edit_review_path(@review), data: { turbolinks: false } %> |
+<%= link_to 'Back', reviews_path %>
+<% end %><% end %>
+  <p><h4 class="comment-title font-alt">レビュアー</h4></p>
+<% if (@post_user.provider == "facebook") %>
+                        <% @post_user.icon = @post_user.icon.insert(4,"s") %>
+                        <%= image_tag @post_user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50" %>
+                      <% elsif @post_user.avator %>
+                        <%= image_tag(@post_user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+                      <% else %>
+                        <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+                      <% end %>
+                      <%= link_to @post_user.name, user_path(id: @post_user.id) %>
+  <div class="comment clearfix">
+
+<%= @post_user.profile  %>
+ </div>
+
+
+  <div>
+    <div id="comments_area"><!-- #① -->
+      <!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
+      <%= render partial: 'comments/index', locals: { comments: @comments } %>
     </div>
+    <% if user_signed_in? %><% unless @review.user_id == current_user.id %>
+      <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
+      <%= render partial: 'comments/form', locals: { comment: @comment, review: @review } %>
+    <% end %><% end %>
   </div>
-</section>
+
+                  </div>
+                </div>
+
+              </div>
+<%= render partial: 'layouts/sidebar' %>
+        </section>

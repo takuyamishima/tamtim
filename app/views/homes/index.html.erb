@@ -1,112 +1,87 @@
-      <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="assets/images/showcase_bg.jpg">
-        <div class="titan-caption">
-          <div class="caption-content">
-            <div class="font-alt mb-30 titan-title-size-1">人からのおすすめで価値あるものを見つける</div>
-            <div class="font-alt mb-40 titan-title-size-4">timtam</div>
-            <a class="section-scroll btn btn-border-w btn-round" href="#demos">See Demos</a>
-          </div>
+<section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="assets/images/44c4d738128c48d954f4f9647f57a06c_m.jpg">
+  <div class="titan-caption">
+    <div class="caption-content">
+      <div class="font-alt mb-30 titan-title-size-1">人からのおすすめで価値あるものを見つける</div>
+      <div class="font-alt mb-40 titan-title-size-4">timtam</div>
+      <a class="section-scroll btn btn-border-w btn-round" href="#demos">See Reviews</a>
+      <% unless user_signed_in? %>
+        <%= link_to "Facebookで登録", user_facebook_omniauth_authorize_path, class: "login-button facebook" ,method: :post %>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+
+<section class="module-medium" id="demos">
+  <div class="container">
+    <center><h1>Reviews</h1></center>
+    <div class="row multi-columns-row">
+      <% @review.each do |review| %>
+        <div class="col-md-3 col-sm-12 col-xs-12">
+         <div class="features-item">
+           <% unless review.image.blank? %>
+            <div class="features-icon"><%= link_to image_tag(review.image.url, :class =>'fit-img'), review_path(review.id) %></div>
+           <% else %>
+            <div class="features-icon"><%= link_to image_tag('/no_img.png', :class =>'fit-img'), review_path(review.id) %></div>
+           <% end %>
+           <h3 class="features-title font-alt"><%= link_to review.title , review_path(review.id) %></h3>
         </div>
-      </section>
+       </div>
+     <% end %>
+    </div>
+  </div>
+</section>
 
-<h1>レビュー一覧</h1>
-<div class="function-images">
- <div class="function-image">
- </div>
-</div>
-
-       <section class="module">
-          <div class="container">
-            <div class="row multi-columns-row">
-              <% @review.each do |review| %>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="features-item">
-                   <% unless review.image.blank? %>
-    <div class="features-icon"><%= link_to image_tag(review.image.url, :size =>'100x100'), review_path(review.id) %></div>
-  <% else %>
-    <div class="features-icon"><%= link_to image_tag('/no_img.png', :size =>'100x100'), review_path(review.id) %></div>
-  <% end %>
-
-                  <h3 class="features-title font-alt"><%= link_to review.title , review_path(review.id) %></h3>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.
-                </div>
-              </div>
-              <% end %>
-            </div>
-          </div>
-        </section>
-
-<h1>レビュアー一覧</h1>
-
-<div class="function-images">
- <div class="function-image">
-    <% @users.each do |user| %>
-      <li>
-        <%= link_to user.name, user %>
-        <% if user.provider == "facebook" %>
-          <% user.icon = user.icon.insert(4,"s") %>
-          <td><%= link_to image_tag(user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), users_path(user.id) %></td>
-        <% elsif user.avator %>
-          <td><%= link_to image_tag(user.avator.url, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), users_path(user.id) %></td>
-        <% else %>
-          <td><%= link_to image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), users_path(user.id) %></td>
-        <% end %>
-      </li>
-    <% end %>
- </div>
-</div>
+<section class="module-medium" id="demos">
+  <div class="container">
+    <center><h1>Reviewers</h1></center>
+    <div class="row multi-columns-row">
+      <% @users.each do |user| %>
+        <div class="col-md-3 col-sm-12 col-xs-12">
+         <div class="features-item">
+           <% if user.provider == "facebook" %>
+             <div class="features-icon"><% user.icon = user.icon.insert(4,"s") %><%= link_to image_tag(user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), user %></div>
+            <% elsif user.avator %>
+             <div class="features-icon"><%= link_to image_tag(user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), user %></div>
+            <% else %>
+             <div class="features-icon"><%= link_to image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => '100x100'), user %></div>
+           <% end %>
+           <h3 class="features-title font-alt"><%= link_to user.name, user %></h3>
+        </div>
+       </div>
+     <% end %>
+    </div>
+  </div>
+</section>
 
         <div class="module-small bg-dark">
           <div class="container">
             <div class="row">
               <div class="col-sm-3">
                 <div class="widget">
-                  <h5 class="widget-title font-alt">About Titan</h5>
-                  <p>The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                  <p>Phone: +1 234 567 89 10</p>Fax: +1 234 567 89 10
-                  <p>Email:<a href="#">somecompany@example.com</a></p>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Recent Comments</h5>
+                  <h5 class="widget-title font-alt">about timtam</h5>
                   <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
+                    <li><a href="#">timtamについて</a></li>
+                    <li><a href="#">利用規約</a></li>
+                    <li><a href="#">プライバシーポリシー</a></li>
                   </ul>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
+                  <h5 class="widget-title font-alt">about team</h5>
                   <ul class="icon-list">
-                    <li><a href="#">Photography - 7</a></li>
-                    <li><a href="#">Web Design - 3</a></li>
-                    <li><a href="#">Illustration - 12</a></li>
-                    <li><a href="#">Marketing - 1</a></li>
-                    <li><a href="#">Wordpress - 16</a></li>
+                    <li><a href="#">チーム道玄坂について</a></li>
+                    <li><a href="#">採用情報</a></li>
                   </ul>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Popular Posts</h5>
-                  <ul class="widget-posts">
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                        <div class="widget-posts-meta">23 january</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                        <div class="widget-posts-meta">15 February</div>
-                      </div>
-                    </li>
+                  <h5 class="widget-title font-alt">お問い合わせ</h5>
+                  <ul class="icon-list">
+                    <li><a href="#">お問い合わせ</a></li>
+                    <li><a href="#">広告掲載について</a></li>
                   </ul>
                 </div>
               </div>
@@ -118,7 +93,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6">
-                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
+                <p class="copyright font-alt">&copy; 2018&nbsp;<a href="index.html">Team Dogenzaka</a>, All Rights Reserved</p>
               </div>
               <div class="col-sm-6">
                 <div class="footer-social-links">
@@ -145,5 +120,3 @@
         </footer>
         </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-</body>
-</html>

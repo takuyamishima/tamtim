@@ -41,6 +41,8 @@ gem 'ckeditor'
 gem 'font-awesome-rails'
 gem 'rails_12factor'
 gem 'fog-aws'
+gem 'jquery-ui-rails'
+gem 'jquery-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

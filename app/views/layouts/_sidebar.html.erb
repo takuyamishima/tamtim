@@ -1,0 +1,30 @@
+ <div class="col-sm-4 col-md-3 col-md-offset-1 sidebar">
+                <div class="widget">
+                  <form role="form">
+                    <div class="search-box">
+                      <input class="form-control" type="text" placeholder="Search..."/>
+                      <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                  </form>
+                </div>
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Recent Posts</h5>
+                  <ul class="icon-list">
+                    <% @post_user.reviews.last(5).each do |review| %>
+                    <li><%= link_to review.title, review_path(review.id) %></li>
+                    <% end %>
+                  </ul>
+                </div>
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Popular Posts</h5>
+                  <ul class="icon-list">
+                    <% @post_user.reviews.last(5).each do |review| %>
+                    <li><%= link_to review.title, review_path(review.id) %></li>
+                    <% end %>
+                  </ul>
+                </div>
+                <div class="widget">
+                  <h5 class="widget-title font-alt">Tag</h5>
+                  <div class="tags font-serif"><a href="#" rel="tag">Blog</a><a href="#" rel="tag">Photo</a><a href="#" rel="tag">Video</a><a href="#" rel="tag">Image</a><a href="#" rel="tag">Minimal</a><a href="#" rel="tag">Post</a><a href="#" rel="tag">Theme</a><a href="#" rel="tag">Ideas</a><a href="#" rel="tag">Tags</a><a href="#" rel="tag">Bootstrap</a><a href="#" rel="tag">Popular</a><a href="#" rel="tag">English</a>
+                  </div>
+                </div>

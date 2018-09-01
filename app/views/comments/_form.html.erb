@@ -1,0 +1,10 @@
+<div class="comment-form">
+  <h4 class="comment-form-title font-alt">Add your comment</h4>
+  <%= form_with(model: [review, comment] ) do |form| %>
+
+    <div class="form-group">
+      <%= form.text_area :content, class: "form-control" %>
+    </div>
+    <%= form.submit "コメントをする", class: "btn btn-round btn-d" %>
+  <% end %>
+</div>

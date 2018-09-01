@@ -1,9 +1,13 @@
-
-      <section class="module">
+<section class="module-medium" id="demos">
           <div class="container">
+<h1>My page</h1>
+            <div class="row">
+              <div class="col-sm-8">
+<div class="row multi-columns-row post-columns">  
+<!-- パンくずリスト（うまく表示されないのでコメントアウト）
 <% breadcrumb :user, @user %>
 <% provide(:title, @user.name) %>
-<h1>My page</h1>
+ -->
 
 <ul class="users">
   <li><%= @user.name %></li>
@@ -18,27 +22,37 @@
     <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100") %>
   <% end %>
 </ul>
-
+<%= @user.profile  %>
+<% if current_user && @user.id == current_user.id %>
 <%= link_to 'ユーザーを編集する', edit_user_registration_path  %>
 <%= link_to 'ユーザーを削除する', users_destroy_path(id: current_user.id), method: :delete %>
-
-
-
+<% end %>
 　　　<%= render 'follow_form' %>
 　　　<%= render 'stats' %>
 
-            <div class="row">
-              <div class="col-sm-8">
-                <div class="row multi-columns-row post-columns">
+<ul class="nav nav-tabs">
+  <li class="nav-item active">
+    <a href="#tab1" class="nav-link" data-toggle="tab">投稿一覧</a>
+  </li>
+  <li class="nav-item">
+    <a href="#tab2" class="nav-link" data-toggle="tab">お気に入り一覧</a>
+  </li>
+  <li class="nav-item">
+    <a href="#tab3" class="nav-link" data-toggle="tab">フォローしている人の投稿一覧</a>
+  </li>
+</ul>
+<div class="tab-content">
+  <div id="tab1" class="tab-pane active">
                   <% @user.reviews.each do |review| %>
                   <div class="col-md-6 col-lg-6">
                     <div class="post">
                       <div class="post-thumbnail">
-                        <%= image_tag(review.image.url) if review.image.url %>
+                        <%= image_tag(review.image.url, :class => "fit-img") if review.image.url %>
                       </div>
                       <div class="post-header font-alt">
                         <h2 class="post-title"><%= review.title %></h2>
-                        <div class="post-meta">By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
+                        <div class="post-meta">
+                          By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
                         </div>
                       </div>
                       <div class="post-entry">
@@ -51,18 +65,16 @@
                       </div>
                     </div>
                   </div>
-                  <% end %>                  
-                </div>  
-              </div>
-              <div class="row">
-              <div class="col-sm-8">
-                <div class="row multi-columns-row post-columns">
-                <h2>お気に入り一覧</h2>
+                  <% end %>
+                   </div>
+
+  <div id="tab2" class="tab-pane">
+
                   <% @user.favorite_reviews.each do |review| %>
                   <div class="col-md-6 col-lg-6">
                     <div class="post">
                       <div class="post-thumbnail">
-                        <%= image_tag(review.image.url) if review.image.url %>
+                        <%= image_tag(review.image.url, :class => "fit-img") if review.image.url %>
                       </div>
                       <div class="post-header font-alt">
                         <h2 class="post-title"><%= review.title %></h2>
@@ -77,66 +89,20 @@
                       </div>
                     </div>
                   </div>
-                  <% end %>                  
-                </div>  
-              </div>
-              <div class="col-sm-4 col-md-3 col-md-offset-1 sidebar">
-                <div class="widget">
-                  <form role="form">
-                    <div class="search-box">
-                      <input class="form-control" type="text" placeholder="Search..."/>
-                      <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                    </div>
-                  </form>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
-                  <ul class="icon-list">
-                    <li><a href="#">Photography - 7</a></li>
-                    <li><a href="#">Web Design - 3</a></li>
-                    <li><a href="#">Illustration - 12</a></li>
-                    <li><a href="#">Marketing - 1</a></li>
-                    <li><a href="#">Wordpress - 16</a></li>
-                  </ul>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Popular Posts</h5>
-                  <ul class="widget-posts">
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-3.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                        <div class="widget-posts-meta">23 january</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-4.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                        <div class="widget-posts-meta">15 February</div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Tag</h5>
-                  <div class="tags font-serif"><a href="#" rel="tag">Blog</a><a href="#" rel="tag">Photo</a><a href="#" rel="tag">Video</a><a href="#" rel="tag">Image</a><a href="#" rel="tag">Minimal</a><a href="#" rel="tag">Post</a><a href="#" rel="tag">Theme</a><a href="#" rel="tag">Ideas</a><a href="#" rel="tag">Tags</a><a href="#" rel="tag">Bootstrap</a><a href="#" rel="tag">Popular</a><a href="#" rel="tag">English</a>
-                  </div>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Text</h5>The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Recent Comments</h5>
-                  <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <% end %>            
+                  </div> 
+
+  <div id="tab3" class="tab-pane">      
+  
+<% if current_user && @user.id == current_user.id %>
+                  <% if @feed_items.any? %>
+                      <%= render @feed_items %>
+                  <% end %>
+              <% else %>
+              <% end %>
+              </div>  
+                </div> 
+ </div>
+ </div>
+ </div>
         </section>

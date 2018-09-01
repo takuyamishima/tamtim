@@ -1,5 +1,12 @@
-<h3 class="title-place">以下の内容で、送信する。</h3>
+        <section class="module-small">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="post">
+                  <div class="post-header font-alt">
+<h3>以下の内容で、送信する。</h3>
 
+<ul>
 <%= form_with(model: @review, url: reviews_path, local: true) do |form| %>
 
   <%= form.hidden_field :title %>
@@ -7,18 +14,18 @@
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :image_cache %>
   <%= form.hidden_field :draft %>
-
-  <p class="centering_item">Title: <%= @review.title %></p>
-  <p class="centering_item">Content:<%= form.cktext_area :content, :class => "ckeditor" %></p>
-  <div class="field centering_item">
-    <!-- 確認画面でアップロードした画像を表示させるための記述 -->
-    <% unless @review.image.blank? %>
-      <%= image_tag(@review.image.to_s) %>
-    <% else %>
-       <%= image_tag '/no_img.png' %>
-    <% end %>
+                  <div class="post-entry">
+  <p>タイトル:<%= @review.title %></p>
+  <p>本文:<%== @review.content %></p>
+  <!--一旦コメントアウト <p>本文:<%= form.cktext_area :content, :class => "ckeditor" %></p> -->
+  <!-- 確認画面でアップロードした画像を表示させるための記述 -->
+  <% unless @review.image.blank? %>
+    サムネイル用画像<%= image_tag(@review.image.to_s) %>
+  <% else %>
+     サムネイル用画像<%= image_tag '/no_img.png'%>
+  <% end %>
   </div>
-  <%= form.submit( "登録する", :class => "center-block submit-button") %>
+  <li><%= form.submit  "登録する", class: "btn btn-round btn-d"  %></li>
 <% end %>
 
 <%= form_with(model: @review, url: new_review_path, local: true, method: 'get') do |form| %>
@@ -27,6 +34,12 @@
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :image_cache %>
   <%= form.hidden_field :draft %>
-
-  <%= form.submit("もどる", name: 'back', :class => "center-block submit-button") %>
+  <li><%= form.submit  "もどる", name: 'back', class: "btn btn-round btn-d"  %></li>
 <% end %>
+         </ul>
+            </div>
+           </div>
+          </div>
+        </div>
+      </div>
+</section>

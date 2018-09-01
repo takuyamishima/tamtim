@@ -1,0 +1,19 @@
+
+<div class="col-md-6 col-lg-6">
+  <div class="post">
+    <div class="post-thumbnail">
+      <%= image_tag(review.image.url, :class => "fit-img") if review.image.url %>
+    </div>
+    <div class="post-header font-alt">
+      <h2 class="post-title"><%= review.title %></h2>
+      <div class="post-meta">By&nbsp;| 23 November | 3 Comments
+      </div>
+    </div>
+    <div class="post-entry">
+      <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+    </div>
+    <div class="post-more">
+      <%= link_to '詳細を確認する', review_path(review.id) %>
+    </div>
+  </div>
+</div>

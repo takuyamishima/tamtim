@@ -11,26 +11,29 @@
     </div>
   <% end %>
 
-  <div class="blog_title centering_item">
+  <div class="blog_title">
     <%= form.label :title %>
-    <br>
-    <%= form.text_field :title, :size => "89" %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
-  <div class="field centering_item">
+
+  <div class="field">
     <%= form.label :content %>
     <%= form.cktext_area :content, :class => "ckeditor" %>
   </div>
-  <div class="field centering_item">
-    <%= form.label :image %>
+
+  <div class="field">
+    <%= form.label :サムネイル用画像 %>
     <!-- 確認画面から新規作成画面に戻った時に、 -->
     <!-- アップロードした画像を表示させるための記述 -->
     <%= image_tag(@review.image.url) if @review.image.url %>
     <%= form.file_field :image, id: :review_image %>
   </div>
-  <div class="field centering_item">
-    <%= form.label :draft %>
+
+  <div class="field">
+    <%= form.label :下書き %>
     <%= form.check_box 'draft', {}, false, true %>
   </div>
-  <%= form.submit( "Create Review", :class => "center-block submit-button") %>
+
+  <%= form.submit "レビューを投稿する", class: "btn btn-round btn-d"  %>
 
 <% end %>
