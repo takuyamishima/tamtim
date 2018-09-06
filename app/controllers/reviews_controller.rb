@@ -2,7 +2,15 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   PER = 6
   def index
-    @review = Review.where(draft: true).page(params[:page]).per(PER)
+    if params[:q] != nil
+      params[:q]['title_cont_any'] = params[:q]['title_cont_any'].split(/[\p{blank}\s]+/)
+      params[:q]['content_cont_any'] = params[:q]['content_cont_any'].split(/[\p{blank}\s]+/)
+      @search = Review.ransack(params[:q])
+      @review = @search.result.where(draft: true).page(params[:page]).per(PER)
+    else
+      @search = Review.ransack(params[:q])
+      @review = @search.result.where(draft: true).page(params[:page]).per(PER)
+    end
   end
 
   def new

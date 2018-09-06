@@ -1,5 +1,16 @@
 <section class="module-medium" id="demos">
   <div class="container">
+
+    <%= search_form_for @search do |f| %>
+      <%= f.label :title, 'タイトル' %>
+      <%= f.text_field :title_cont_any %>
+      <%= f.label :content, 'コンテンツ' %>
+      <%= f.text_field :content_cont_any %>
+      <!-- < %= f.label :user_id, 'レビュアー' %>
+      < %= f.text_field :user_id_cont_any %> -->
+      <%= f.submit '検索する' %>
+    <% end %>
+
   <h1>レビュー一覧</h1>
     <div class="row">
       <div class="col-sm-8">
