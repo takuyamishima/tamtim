@@ -9,7 +9,8 @@ html {
 
 body {
   background: #fff;
-  font: 400 12px/1.8 "Open Sans", sans-serif;
+  font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+
   color: #666;
   -webkit-font-smoothing: antialiased;
 }
@@ -305,9 +306,9 @@ a,
 }
 
 .parallax-bg {
-  background-attachment: fixed;
+  background-attachment: inherit;
   background-size: cover;
-  background-image: url("https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/44c4d738128c48d954f4f9647f57a06c_m.jpg");
+  background-image: url("https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/ichioshi+(1).png");
 }
 
 /* Vertical margin, padding */
@@ -650,7 +651,6 @@ a,
 .btn {
   border-radius: 0;
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
   letter-spacing: 2px;
   font-size: 11px;
   padding: 8px 37px;
@@ -814,7 +814,6 @@ a,
 /* Forms common style */
 .form-control {
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
   letter-spacing: 2px;
   font-size: 11px;
   height: 33px;
@@ -890,7 +889,6 @@ blockquote {
 
 .font-alt {
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
   letter-spacing: 2px;
 }
 
@@ -1245,7 +1243,6 @@ General Styles - Owlcarousel
   border-radius: 0;
   z-index: 1000;
   font-family: "Roboto Condensed", sans-serif;
-  text-transform: uppercase;
   letter-spacing: 3px;
   font-size: 11px;
   transition: background, padding 0.4s ease-in-out 0s;
@@ -1346,7 +1343,6 @@ General Styles - Owlcarousel
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
-	text-transform: uppercase;
 	letter-spacing: 2px;
 	font-size: 11px;
 }
@@ -1566,8 +1562,8 @@ Google map
     background-position: center center;
     background-repeat: no-repeat;
     margin: 5px;
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     border: 0px solid #ccc;
     background-size: cover;
 
@@ -1575,7 +1571,6 @@ Google map
 
 .features-title,
 .alt-features-title {
-  text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 400;
   font-size: 14px;
@@ -2253,7 +2248,6 @@ Google map
 .pagination a {
   border: 1px solid #eaeaea;
   display: inline-block;
-  text-transform: uppercase;
   text-align: center;
   color: #999;
   padding: 4px 12px;

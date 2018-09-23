@@ -1,147 +1,112 @@
-        <section class="module-small">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-8">
-                <div class="post">
-                  <div class="post-header font-alt">
-                    <h1><%= @review.title %></h1>
-                    <div class="post-meta">By&nbsp;<%= link_to @post_user.name, user_path(id: @post_user.id) %>
-                    投稿日時: <%= @review.created_at.strftime("%Y年%m月%d日") %>
-                    <a href="#">Photography, </a>
-                    <a href="#">Web Design</a>
-                    </div>
-                  </div>
-                  <div class="post-entry">
-                    <%== @review.content %>
-                    <!--サムネイル用画像のためコメントアウト <%= image_tag(@review.image.to_s, :size =>'100x100') if @review.image.to_s %> -->
-<% if user_signed_in? %>
-<% unless @review.user_id == current_user.id %>
-  <% if @favorite.present? %>
-  <p><button class="btn btn-d btn-circle" type="submit">
-    <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete,:style=>"color:white;"%>
-  </button></p>
-  <% else %>
-  <p><button class="btn btn-d btn-circle" type="submit"><i class="fa fa-heart"></i>
-    <%= link_to 'お気に入り登録する', favorites_path(review_id: @review.id), method: :post,:style=>"color:white;" %>
-</button></p>
-  <% end %>
-<% else %>
-<% end %>
-<% end %>
-
-
-<ul class="shareList">
-  <li class="shareList__item"><a class="shareList__link icon-twitter" href="https://twitter.com/share?url=<%= request.url %>" target="_blank" title="Twitter"></a></li>
-  <li class="shareList__item"><a class="shareList__link icon-facebook" href="https://www.facebook.com/share.php?url=<%= request.url %>" target="_blank" title="Facebook"></a></li>
-  <li class="shareList__item"><a class="shareList__link icon-hatebu" href="//b.hatena.ne.jp/add?mode=confirm&url=<%= request.url %>" target="_blank" title="はてなブックマーク"></a></li>
-  <li class="shareList__item"><a class="shareList__link icon-line" href="http://line.me/R/msg/text/?<%= request.url %>" target="_blank" title="LINE"></a></li>
-</ul>
-<% if user_signed_in? %><% unless @review.user_id == current_user.id %>
-<%= link_to 'Edit', edit_review_path(@review), data: { turbolinks: false } %> |
-<%= link_to 'Back', reviews_path %>
-<% end %><% end %>
-  <p><h4 class="comment-title font-alt">レビュアー</h4></p>
-<% if (@post_user.provider == "facebook") %>
-                        <% @post_user.icon = @post_user.icon.insert(4,"s") %>
-                        <%= image_tag @post_user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50" %>
-                      <% elsif @post_user.avator %>
-                        <%= image_tag(@post_user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
-                      <% else %>
-                        <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
-                      <% end %>
-                      <%= link_to @post_user.name, user_path(id: @post_user.id) %>
-  <div class="comment clearfix">
-
-アパレルブランド「A BATHING APE®」のグラフィックデザインを経て2011年独立。表現の場を選ばないメディアクリエイターとしてのキャリアをスタート。ファッション誌GRINDでの連載をはじめメディア各方面にてグッドデザインアイテム、最新のガジェットを紹介。著書に『I LOVE FND ボクがコレを選ぶ理由』。
- </div>
-
-
-  <div>
-    <div id="comments_area"><!-- #① -->
-      <!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
-      <%= render partial: 'comments/index', locals: { comments: @comments } %>
-    </div>
-    <% if user_signed_in? %><% unless @review.user_id == current_user.id %>
-      <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
-      <%= render partial: 'comments/form', locals: { comment: @comment, review: @review } %>
-    <% end %><% end %>
-  </div>
-
-                  </div>
-                </div>
-
-              </div>
-              <div class="col-sm-4 col-md-3 col-md-offset-1 sidebar">
-                <div class="widget">
-                  <form role="form">
-                    <div class="search-box">
-                      <input class="form-control" type="text" placeholder="Search..."/>
-                      <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                    </div>
-                  </form>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
-                  <ul class="icon-list">
-                    <li><a href="#">Photography - 7</a></li>
-                    <li><a href="#">Web Design - 3</a></li>
-                    <li><a href="#">Illustration - 12</a></li>
-                    <li><a href="#">Marketing - 1</a></li>
-                    <li><a href="#">Wordpress - 16</a></li>
-                  </ul>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Popular Posts</h5>
-                  <ul class="widget-posts">
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                        <div class="widget-posts-meta">23 january</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                        <div class="widget-posts-meta">15 February</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-3.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Eco bag Mockup</a></div>
-                        <div class="widget-posts-meta">21 February</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-4.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Bottle Mockup</a></div>
-                        <div class="widget-posts-meta">2 March</div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Tag</h5>
-                  <div class="tags font-serif"><a href="#" rel="tag">Blog</a><a href="#" rel="tag">Photo</a><a href="#" rel="tag">Video</a><a href="#" rel="tag">Image</a><a href="#" rel="tag">Minimal</a><a href="#" rel="tag">Post</a><a href="#" rel="tag">Theme</a><a href="#" rel="tag">Ideas</a><a href="#" rel="tag">Tags</a><a href="#" rel="tag">Bootstrap</a><a href="#" rel="tag">Popular</a><a href="#" rel="tag">English</a>
-                  </div>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Text</h5>The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Recent Comments</h5>
-                  <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
-                  </ul>
-                </div>
-              </div>
+<section class="module-small">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <div class="post">
+          <div class="post-header font-alt">
+            <h1><%= @review.title %></h1>
+            <div class="post-meta">
+              By&nbsp;<%= link_to @post_user.name, user_path(id: @post_user.id) %>
+              投稿日時: <%= @review.created_at.strftime("%Y年%m月%d日") %>
+              <a href="#">#プレゼント, </a>
+              <a href="#">#スポーツ</a>
             </div>
           </div>
-        </section>
+          <div class="post-entry">
+            <%== @review.content %>
+            <!--サムネイル用画像のためコメントアウト <%= image_tag(@review.image.to_s, :size =>'100x100') if @review.image.to_s %> -->
+            <div class="row">
+              <div class="col-sm-4">
+                <% if user_signed_in? %>
+                  <% unless @review.user_id == current_user.id %>
+                    <% if @favorite.present? %>
+                      <p>
+                        <button class="btn btn-d btn-circle" type="submit">
+                          <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete,:style=>"color:white;"%>
+                        </button>
+                      </p>
+                    <% else %>
+                      <p>
+                        <button class="btn btn-d btn-circle" type="submit"><i class="fa fa-heart"></i>
+                        <%= link_to 'お気に入り登録する', favorites_path(review_id: @review.id), method: :post,:style=>"color:white;" %>
+                        </button>
+                      </p>
+                    <% end %>
+                  <% else %>
+                  <% end %>
+                <% end %>
+              </div>
+
+              <div class="col-sm-4">
+                <p>
+                  <button class="btn btn-d btn-circle" type="submit"><i class="fa fa-heart"></i>
+                    <%= link_to 'いいね！', favorites_path(review_id: @review.id), method: :post,:style=>"color:white;" %>
+                  </button>
+                </p>
+                impressionist_count : <%= number_with_delimiter(@page_views) %>
+              </div>
+            </div>
+            <% if user_signed_in? %>
+              <% unless @review.user_id == current_user.id %>
+                <%= link_to 'Edit', edit_review_path(@review), data: { turbolinks: false } %> |
+                <%= link_to 'Back', reviews_path %>
+              <% end %>
+            <% end %>
+            <p>
+              <h4 class="comment-title font-alt">レビュアー</h4>
+            </p>
+            <% if (@post_user.provider == "facebook") %>
+              <% @post_user.icon = @post_user.icon.insert(4,"s") %>
+              <%= image_tag @post_user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50" %>
+            <% elsif @post_user.avator %>
+              <%= image_tag(@post_user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+            <% else %>
+              <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+            <% end %>
+            <%= link_to @post_user.name, user_path(id: @post_user.id) %>
+
+            <div class="comment clearfix">
+              <%= @post_user.profile  %>
+            </div>
+            <div class="waku">
+              <ul class="iine">
+                <li>いいねした人</li>
+                <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+                <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+                <li>お気に入り登録した人</li>
+                <% @review.favorite_users.each do |favorite_user| %>
+                  <% if favorite_user.provider == "facebook" %>
+                    <div class="features-icon"><% favorite_user.icon = favorite_user.icon.insert(4,"s") %><%= link_to image_tag(favorite_user.icon, :class => "img-circle", :alt => "", :size => '70x70'), favorite_user %></div>
+                  <% elsif favorite_user.avator %>
+                    <div class="features-icon"><%= link_to image_tag(favorite_user.avator.to_s, :class => "img-circle", :alt => "", :size => '70x70'), favorite_user %></div>
+                  <% else %>
+                    <div class="features-icon"><%= link_to image_tag('imagse/no_img.png', :class => "img-circle", :alt => "", :size => '70x70'), favorite_user %></div>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+            <div id="comments_area"><!-- #① -->
+              <!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
+              <%= render partial: 'comments/index', locals: { comments: @comments } %>
+            </div>
+            <% if user_signed_in? %>
+              <% unless @review.user_id == current_user.id %>
+                <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
+                <%= render partial: 'comments/form', locals: { comment: @comment, review: @review } %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <ul class="shareList">
+          <li class="shareList__item"><a class="shareList__link icon-twitter" href="https://twitter.com/share?url=<%= request.url %>" target="_blank" title="Twitter"></a></li>
+          <li class="shareList__item"><a class="shareList__link icon-facebook" href="https://www.facebook.com/share.php?url=<%= request.url %>" target="_blank" title="Facebook"></a></li>
+          <li class="shareList__item"><a class="shareList__link icon-hatebu" href="//b.hatena.ne.jp/add?mode=confirm&url=<%= request.url %>" target="_blank" title="はてなブックマーク"></a></li>
+          <li class="shareList__item"><a class="shareList__link icon-line" href="http://line.me/R/msg/text/?<%= request.url %>" target="_blank" title="LINE"></a></li>
+        </ul>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+  </div>
+</section>

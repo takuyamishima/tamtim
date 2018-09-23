@@ -1,0 +1,109 @@
+.waku {
+    border: solid 1px #e7e7e7;
+    margin-bottom: 10px;
+}
+
+.hidari {
+    text-align: left;
+}
+
+.cover {
+    padding: 0px 0;
+}
+
+.mypagecover {
+    background-image: url(/images/3480159.jpg);
+    position: relative;
+    padding: 140px 0;
+    margin-bottom: 40px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+}
+
+.mypageicon {
+   position: absolute;
+   margin-top: 80px;
+   margin-left: 30px;
+   
+}
+
+.follow_button {
+   position: absolute;
+   margin-top: 100px;
+   margin-left: 150px;
+   
+}
+
+.ribbon{
+  position:relative;
+  background: #bcbcbd;
+  padding: 0em;
+  color: white;
+  margin-right: 10px;
+}
+.ribbon:after{
+  content: "";
+  position:absolute;
+  top:0;
+  right:0;
+  width:0;
+  height:0;
+  border-style: solid;
+  border-color: transparent #fff transparent transparent;
+  border-width: 25px 15px 25px 0;
+}
+
+.gold{
+    background-color: #ccb37e;
+    padding: 10px;
+    color: white;
+}
+
+.dashed{
+    border-bottom: dashed 1px #d7d7d7;
+}
+
+
+.main{
+	position:relative;
+
+	z-index:0;
+}
+
+.main.onhidden{
+	height:250px;
+	overflow-y:hidden;
+}
+
+.main .text{
+	padding:10px;
+}
+
+.main .readmore{
+	position:absolute;
+	bottom:0;
+	width:100%;
+	padding:20px 0;
+	text-align:center;
+	background: rgba(0, 0, 0, 0) linear-gradient(180deg, rgba(255, 255, 255, 0.5), white) repeat scroll 0 0;
+	font-weight:bold;
+	cursor:pointer;
+	z-index:999;
+}
+
+.main .readmore span{
+	border-radius:20px;
+	padding:5px 30px;
+	background-color:#dd4b39;
+	color:#FFF;
+}
+
+.navicon{
+  position: relative;
+  padding:-15px
+}
+
+.topjiko{
+  margin-left: 10px
+}

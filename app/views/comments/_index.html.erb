@@ -1,26 +1,33 @@
 <div class="comments">
-  <h4 class="comment-title font-alt">There are 3 comments</h4>
+  <% if @comments_number == 0 || current_user == nil %>
+
+  <h4 class="comment-title font-alt">There are no comments</h4>
+  <% else %>
+  <h4 class="comment-title font-alt">There are <%= @comments_number %> comments</h4>
+  <% end %>
   <div class="comment clearfix">
-    <% comments.each do |comment| %>
-      <% unless comment.id.nil? %>
-        <div class="comment-avatar">
-          <% if (comment.user.provider == "facebook") %>
-            <% comment.user.icon = comment.user.icon.insert(4,"s") %>
-            <%= image_tag comment.user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50" %>
-          <% elsif comment.user.avator %>
-            <%= image_tag(comment.user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
-          <% else %>
-            <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
-          <% end %>
-        </div>
-        <div class="comment-content clearfix">
-          <div class="comment-author font-alt"><%= link_to "#{comment.user.name}さん", user_path(comment.user.id) %></div>
-          <div class="comment-body">コメント：<%= comment.content %></div>
-          <div class="comment-meta font-alt">Today, 14:55 - <a href="#">Reply</a></div>
-          <% if comment.user_id == current_user.id %>
-            <p><%= link_to 'コメントを削除する', review_comment_path(comment.review_id, comment.id), method: :delete, remote: true %></p>
-          <% end %>
-        </div>
+    <% if current_user != nil %>
+      <% comments.each do |comment| %>
+        <% unless comment.id.nil? %>
+          <div class="comment-avatar">
+            <% if (comment.user.provider == "facebook") %>
+              <% comment.user.icon = comment.user.icon.insert(4,"s") %>
+              <%= image_tag comment.user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50" %>
+            <% elsif comment.user.avator %>
+              <%= image_tag(comment.user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+            <% else %>
+              <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+            <% end %>
+          </div>
+          <div class="comment-content clearfix">
+            <div class="comment-author font-alt"><%= link_to "#{comment.user.name}", user_path(comment.user.id) %></div>
+            <div class="comment-body"><%= comment.content %></div>
+            <div class="comment-meta font-alt"><%= comment.created_at.strftime("%Y年%m月%d日") %></div>
+            <% if comment.user_id == current_user.id %>
+              <p><%= link_to 'コメントを削除する', review_comment_path(comment.review_id, comment.id), method: :delete, remote: true %></p>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>

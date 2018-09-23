@@ -1,17 +1,48 @@
+<section class="module-medium" id="demos">
+          <div class="container">
+<h1>フォローされている人一覧</h1>
+            <div class="row">
+              <div class="col-sm-8">
+<div class="row multi-columns-row post-columns">  
+<!-- パンくずリスト（うまく表示されないのでコメントアウト）
+<% breadcrumb :user, @user %>
+<% provide(:title, @user.name) %>
+ -->
 
-</br>
-</br>
-</br>
-</br>
+<ul class="users">
+  <li><%= @user.name %></li>
+  <li><%= @user.email %></li>
+  
+  <% if (@user.provider == "facebook") %>
+    <% @user.icon = @user.icon.insert(4,"s") %>
+    <%= image_tag @user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100" %>
+  <% elsif @user.avator %>
+    <%= image_tag(@user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100") %>   
+  <% else %>
+    <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100") %>
+  <% end %>
+</ul>
+<%= @user.profile  %>
+<% if current_user && @user.id == current_user.id %>
+<%= link_to 'ユーザーを編集する', edit_user_registration_path  %>
+<%= link_to 'ユーザーを削除する', users_destroy_path(id: current_user.id), method: :delete %>
+<% end %>
+<p>
 
  <% @user.followers.each do |user| %>
-<table>
-<tr>
-  <td>  <%= user.id %> </td>
-  <td><%= link_to '詳細', user_path(user) %></td>
-</tr>
 
-</table>
+  <% if (user.provider == "facebook") %>
+    <% user.icon = user.icon.insert(4,"s") %>
+    <%= image_tag user.icon, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100" %>
+  <% elsif user.avator %>
+    <%= image_tag(user.avator.to_s, :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100") %>   
+  <% else %>
+    <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "100x100") %>
+  <% end %>
+  
+  <%= user.name %>
+  <%= link_to '詳細', user_path(user) %>
+<%= user.profile  %>
 <% end %>
 
 <% @users.reviews.each do |review| %>

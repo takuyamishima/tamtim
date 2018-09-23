@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
     @review = Review.find(params[:review_id]) #①
     @comment = @review.comments.build(comment_params) #②
     @comment.user_id = current_user.id #③
+    @comment_number = Comment.count
     if @comment.save
       render :index #④
     end

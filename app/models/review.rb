@@ -14,4 +14,6 @@ class Review < ApplicationRecord
           user_id: user.id)
   end
 
+is_impressionable
+
 end

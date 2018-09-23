@@ -5,10 +5,20 @@
         <h2 class="page-header">SIGN UP</h2>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= devise_error_messages! %>
-          <%= session.to_hash %>
-
           <%= f.hidden_field :name %>
-          
+
+            <div class="field">
+              <%= f.label :name %><br />
+              <%= f.text_field :name %>
+            </div>
+
+            <div class="field">
+              <%= f.label :avator %>
+              <%= f.file_field :avator %>
+              <%= image_tag @user.avator.url if @user.avator.url %>
+            </div>
+
+
           <div class="field">
             <%= f.label :email %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control" %>

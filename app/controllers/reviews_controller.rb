@@ -37,6 +37,13 @@ class ReviewsController < ApplicationController
     @post_user = @review.user
     @comment = Comment.new #①
     @comments = @review.comments #②
+    @comments_number = @comments.count
+    
+    
+     impressionist(@review, nil, :unique => [:session_hash])
+
+    @page_views = @review.impressionist_count
+    
   end
 
   def edit
