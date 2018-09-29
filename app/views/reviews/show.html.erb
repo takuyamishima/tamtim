@@ -22,29 +22,42 @@
                   <% unless @review.user_id == current_user.id %>
                     <% if @favorite.present? %>
                       <p>
-                        <button class="btn btn-d btn-circle" type="submit">
-                          <%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete, :style=>"color:white;"%>
+                        <button class="btn btn-primary btn-circle" type="submit"><i class="fa fa-heart"></i>
+                          <%= link_to 'お気に入り解除', favorite_path(id: @favorite.id), method: :delete, :style=>"color:white;"%>
                         </button>
                       </p>
                     <% else %>
                       <p>
                         <button class="btn btn-d btn-circle" type="submit"><i class="fa fa-heart"></i>
-                        <%= link_to 'お気に入り登録する', favorites_path(review_id: @review.id), method: :post, :style=>"color:white;" %>
+                          <%= link_to 'お気に入り登録', favorites_path(review_id: @review.id), method: :post, :style=>"color:white;" %>
                         </button>
                       </p>
                     <% end %>
-                  <% else %>
                   <% end %>
                 <% end %>
               </div>
 
               <div class="col-sm-4">
-                <p>
-                  <button class="btn btn-d btn-circle" type="submit"><i class="fa fa-heart"></i>
-                    <%= link_to 'いいね！', favorites_path(review_id: @review.id), method: :post,:style=>"color:white;" %>
-                  </button>
-                </p>
+                <% if user_signed_in? %>
+                  <% unless @review.user_id == current_user.id %>
+                    <% if @like.present? %>
+                      <p>
+                        <button class="btn btn-primary btn-circle" type="submit"><i class="glyphicon glyphicon-thumbs-up"></i>
+                          <%= link_to 'いいね！', like_path(id: @like.id), method: :delete, :style=>"color:white;"%>
+                        </button>
+                      </p>
+                    <% else %>
+                      <p>
+                        <button class="btn btn-d btn-circle" type="submit"><i class="glyphicon glyphicon-thumbs-up"></i>
+                          <%= link_to 'いいね！', likes_path(review_id: @review.id), method: :post, :style=>"color:white;" %>
+                        </button>
+                      </p>
+                    <% end %>
+                  <% end %>
+                <% end %>
+
                 訪問者数 : <%= number_with_delimiter(@page_views) %>
+
               </div>
             </div>
             <% if user_signed_in? %>
@@ -72,8 +85,15 @@
             <div class="waku">
               <ul class="iine">
                 <li>いいねした人</li>
-                <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
-                <%= image_tag('/no_img.png', :class => "img-circle", :alt => "Karan Singh Sisodia", :size => "50x50") %>
+                <% @review.like_users.each do |like_user| %>
+                  <% if like_user.provider == "facebook" %>
+                    <div class="features-icon"><% like_user.icon = like_user.icon.insert(4,"s") %><%= link_to image_tag(like_user.icon, :class => "img-circle", :alt => "", :size => '70x70'), like_user %></div>
+                  <% elsif like_user.avator %>
+                    <div class="features-icon"><%= link_to image_tag(like_user.avator.to_s, :class => "img-circle", :alt => "", :size => '70x70'), like_user %></div>
+                  <% else %>
+                    <div class="features-icon"><%= link_to image_tag('imagse/no_img.png', :class => "img-circle", :alt => "", :size => '70x70'), like_user %></div>
+                  <% end %>
+                <% end %>
                 <li>お気に入り登録した人</li>
                 <% @review.favorite_users.each do |favorite_user| %>
                   <% if favorite_user.provider == "facebook" %>

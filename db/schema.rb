@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_062739) do
+ActiveRecord::Schema.define(version: 2018_09_29_042031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,20 @@ ActiveRecord::Schema.define(version: 2018_09_24_062739) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "hashtag_relations", force: :cascade do |t|
+    t.integer "review_id"
+    t.integer "hashtag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "hashtag_name"
+    t.bigint "review_id"
+    t.index ["hashtag_name"], name: "index_hashtags_on_hashtag_name", unique: true
+    t.index ["review_id"], name: "index_hashtags_on_review_id"
+  end
+
   create_table "impressions", force: :cascade do |t|
     t.string "impressionable_type"
     t.integer "impressionable_id"
@@ -66,6 +80,13 @@ ActiveRecord::Schema.define(version: 2018_09_24_062739) do
     t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
     t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
     t.index ["user_id"], name: "index_impressions_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|

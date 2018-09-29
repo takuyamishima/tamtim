@@ -8,7 +8,7 @@
       <%= link_to user.name, user %>
       <%= user.email %>
       <%= link_to 'ユーザーを編集する', edit_user_registration_path  %>
-      <%= link_to 'ユーザーを削除する', users_destroy_path(id: current_user.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %>
+      <!-- < %= link_to 'ユーザーを削除する', users_destroy_path(id: current_user.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %> -->
     </li>
   <% end %>
 </ul>
