@@ -71,6 +71,74 @@
           });
         </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+var searchBox = '.search-box'; // 絞り込む項目を選択するエリア
+var listItem = '.list_item';   // 絞り込み対象のアイテム
+var hideClass = 'is-hide';     // 絞り込み対象外の場合に付与されるclass名
+
+        
+        
+
+$(function() {
+    // 絞り込み項目を変更した時
+    $(document).on('change', searchBox + ' input', function() {
+        search_filter();
+    });
+});
+
+/**
+ * リストの絞り込みを行う
+ */
+function search_filter() {
+    // 非表示状態を解除
+    $(listItem).removeClass(hideClass);
+    for (var i = 0; i < $(searchBox).length; i++) {
+        var name = $(searchBox).eq(i).find('input').attr('name');
+        // 選択されている項目を取得
+        var searchData = get_selected_input_items(name);
+        // 選択されている項目がない、またはALLを選択している場合は飛ばす
+        if(searchData.length === 0 || searchData[0] === '') {
+            continue;
+        }
+        // リスト内の各アイテムをチェック
+        for (var j = 0; j < $(listItem).length; j++) {
+            // アイテムに設定している項目を取得
+            var itemData = $(listItem).eq(j).data(name);
+            // 絞り込み対象かどうかを調べる
+            if(searchData.indexOf(itemData) === -1) {
+                $(listItem).eq(j).addClass(hideClass);
+            }
+        }
+    }
+}
+
+/**
+ * inputで選択されている値の一覧を取得する
+ * @param  {String} name 対象にするinputのname属性の値
+ * @return {Array}       選択されているinputのvalue属性の値
+ */
+function get_selected_input_items(name) {
+    var searchData = [];
+    $('[name=' + name + ']:checked').each(function() {
+        searchData.push($(this).val());
+    });
+    return searchData;
+}
+
+</script>
+
+<form>
+
+    <div class="search-box">
+        <span class="search-box_label">タイトル:</span>
+        <input type="checkbox" name="color" value="">ALL
+        <% @user.reviews.each do |review| %>
+        <input type="checkbox" name="color" value="<%= review.title %>"><%= review.title %>
+<% end %>
+    </div>
+</form>
+
         <ul class="nav nav-tabs">
           <li class="nav-item active">
             <a href="#tab1" class="nav-link" data-toggle="tab">投稿一覧</a>
@@ -137,13 +205,14 @@
               <input type="checkbox" name="riyu" value="50">	#収納
               <input type="checkbox" name="riyu" value="51">	#雑貨
             </div>
-
+<div class="list">
             <% @user.reviews.each do |review| %>
+            <div class="list_item" data-kind="果物" data-color="<%= review.title %>">
               <div class="post">
                 <div class="post-header font-alt">
                   <h2 class="post-title"><%= review.title %></h2>
                   <div class="post-meta">
-                    By&nbsp;<a href="#"><%= review.user.name %></a>&nbsp;| <%= review.created_at.strftime('%d %B') %> | <%= review.comments.count %> Comments
+                    By&nbsp;<a href="#">Mark Stone</a>&nbsp;| 23 November | 3 Comments
                   </div>
                 </div>
 
@@ -163,9 +232,10 @@
                   <% end %>
                 </div>
               </div>
+              </div>
             <% end %>
           </div>
-
+</div>
           <div id="tab2" class="tab-pane">
             <% @user.favorite_reviews.each do |review| %>
               <div class="col-md-6 col-lg-6">

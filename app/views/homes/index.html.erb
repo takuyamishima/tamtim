@@ -2,8 +2,8 @@
   <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="assets/images/ichioshi.png">
     <div class="titan-caption">
       <div class="caption-content">
-        <div class="font-alt mb-30 titan-title-size-1">人からのおすすめで価値あるものを見つける</div>
-        <div class="font-alt mb-40 titan-title-size-4">IchiOshi</div>
+        <div class="font-alt mb-30 titan-title-size-1">本当にいいモノを、人からのおすすめで見つける</div>
+        <div class="font-alt mb-40 titan-title-size-4">ICHIOSHI</div>
         <% unless user_signed_in? %>
           <%= link_to image_tag('/images/facebook_login.png',:alt => "Karan Singh Sisodia", :size => '200'), user_facebook_omniauth_authorize_path, class: "login-button facebook" ,method: :post %>
         <% end %>
@@ -24,21 +24,21 @@
       <div class="row multi-columns-row">
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="features-item">
-            <div class="features-icon"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+            <div class="features-icon"><i class="far fa-thumbs-up"></i></div>
             <h3 class="features-title font-alt">いいモノは人が知っている</h3>
             <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="features-item">
-            <div class="features-icon"><span class="glyphicon glyphicon-check"></span></div>
+            <div class="features-icon"><i class="far fa-comment"></i></div>
             <h3 class="features-title font-alt">人からのおすすめで新しい出会いを</h3>
             <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="features-item">
-            <div class="features-icon"><span class="glyphicon glyphicon-heart-empty"></span></div>
+            <div class="features-icon"><i class="far fa-address-card"></i></div>
             <h3 class="features-title font-alt">実名制だから価値がある</h3>
             <p>Careful attention to detail and clean, well structured code ensures a smooth user experience for all your visitors.</p>
           </div>
@@ -52,7 +52,7 @@
       <section class="" id="demos">
         <div class="container">
           <h2 class="module-title font-alt">フォローしている人の新着レビュー</h2>
-          <div class="row multi-columns-row slider">
+          <div class="row multi-columns-row slider slider_adjust">
             <%= render @feed_items %>
           </div>
         </div>
@@ -79,22 +79,23 @@
                 <% end %>
               </div>
               <div class="col-sm-8">
-                <h3 class="features-title font-alt hidari">モンブランに全てを捧げるモンブラン王</h3>
+                <h2 class="features-title font-alt hidari"><%= link_to user.name, user %></h2>
               </div>
               <div class="col-sm-12">
-                <div class=""><%= link_to user.name, user %></div>
-              </div>
-              <div class="col-sm-12">
-                <div class="dashed">自称「日本一ラーメンを食べた男」。ラーメンデータバンク取締役会長を務める。「日本ラーメン秘史」など執筆。ラーメンだけでなく鮨にも精通している。</div>
+                <div class="dashed"><%= user.profile.truncate(50) if user.profile %></div>
               </div>
               <div class="col-sm-12">
                 新着レビュー
               </div>
               <div class="col-sm-12">
-                <img src="/images/3480159.jpg" alt="海の写真" title="空と海">
+                <% @new_reviews = user.reviews.order(created_at: :desc).limit(1) %>
+                <% @new_reviews.each do |new_review| %>
+                  <%= link_to new_review.title,new_review %>
+                  <%= link_to image_tag(new_review.image.url, :class => "fit-img"),new_review if new_review.image.url %>
+                <% end %>
               </div>
               <div class="col-sm-12">
-                <div class="gold">レビューをもっと見る&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></div>
+                <div class="hidari gold">レビューをもっと見る&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></div>
               </div>
             </div>
           </div>
@@ -107,7 +108,7 @@
 <section class="" id="demos">
   <div class="container">
     <center><h1>Reviewers</h1></center>
-    <div class="row multi-columns-row">
+    <div class="row multi-columns-row slider slider_adjust">
       <% @users.each do |user| %>
         <div class="col-md-3 col-sm-12 col-xs-12">
           <div class="waku">
@@ -134,10 +135,14 @@
                 <div class="hidari dashed">360個のモンブランを食べ尽くした通。モンブランのカウント単位は「MB」</div>
               </div>
               <div class="col-sm-12">
-                新着のイチオシ
+                新着レビュー
               </div>
               <div class="col-sm-12">
-                <img src="/images/3480159.jpg" alt="海の写真" title="空と海">
+                <% @new_reviews = user.reviews.order(created_at: :desc).limit(1) %>
+                <% @new_reviews.each do |new_review| %>
+                  <%= link_to new_review.title,new_review %>
+                  <%= link_to image_tag(new_review.image.url, :class => "fit-img"),new_review if new_review.image.url %>
+                <% end %>
               </div>
               <div class="col-sm-12">
                 <div class="hidari gold">レビューをもっと見る&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></div>

@@ -1,8 +1,10 @@
 <div class="col-md-3 col-sm-12 col-xs-12">
   <div class="waku">
     <div class="row">
-      <div class="col-sm-12">
-        <center><%= link_to image_tag(review.image.url, :class => "fit-img"), review_path(review.id) if review.image.url %></center>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="review_card">
+        <center><%= link_to image_tag(review.image.url, :class => "fit-imgtop"), review_path(review.id) if review.image.url %></center>
+        </div>
       </div>
       <div class="col-sm-4 col-xs-4">
         <% if (review.user.provider == "facebook") %>

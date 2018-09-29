@@ -33,7 +33,8 @@ class ReviewsController < ApplicationController
   def show
     @review = Review.find(params[:id])
     if current_user
-     @favorite = current_user.favorites.find_by(review_id: @review.id)
+      @favorite = current_user.favorites.find_by(review_id: @review.id)
+      @like = current_user.likes.find_by(review_id: @review.id)
     end
     @post_user = @review.user
     @comment = Comment.new
