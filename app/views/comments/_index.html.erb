@@ -12,6 +12,8 @@
           <div class="comment-avatar">
             <% if (comment.user.provider == "facebook") %>
               <%= image_tag comment.user.icon, :class => "img-circle", :alt => "icon", :size => "50x50" %>
+            <% elsif !comment.user.avator.nil? %>
+              <%= image_tag(comment.user.avator.to_s, :class => "img-circle", :alt => "icon", :size => "50x50") %>
             <% else %>
               <%= image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => "50x50") %>
             <% end %>

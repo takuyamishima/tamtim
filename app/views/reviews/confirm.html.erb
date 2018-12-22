@@ -24,6 +24,7 @@
                         <%== @review.tag_list %>
                         <!--一旦コメントアウト <p>本文:<%= form.cktext_area :content, :class => "ckeditor" %></p> -->
                         <!-- 確認画面でアップロードした画像を表示させるための記述 -->
+                        サムネイル用画像:<%= image_tag(@review.image.to_s, :size => '200x200') %>
                       </div>
                     </div>
                   <% end %>

@@ -105,6 +105,8 @@
           </p>
           <% if (@post_user.provider == "facebook") %>
             <%= image_tag @post_user.icon, :class => "img-circle", :alt => "icon", :size => "50x50" %>
+          <% elsif !@post_user.avator.nil? %>
+            <%= image_tag(@post_user.avator.to_s, :class => "img-circle", :alt => "icon", :size => "50x50") %>
           <% else %>
             <%= image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => "50x50") %>
           <% end %>
@@ -118,6 +120,8 @@
               <% @review.like_users.each do |like_user| %>
                 <% if like_user.provider == "facebook" %>
                   <li class="features-icon"><%= link_to image_tag(like_user.icon, :class => "img-circle", :alt => "icon", :size => '70x70'), like_user %></div>
+                <% elsif !like_user.avator.nil? %>
+                  <li class="features-icon"><%= link_to image_tag(like_user.avator.to_s, :class => "img-circle", :alt => "icon", :size => '70x70'), like_user %></div>
                 <% else %>
                   <li class="features-icon"><%= link_to image_tag('imagsehttps://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => '70x70'), like_user %></div>
                 <% end %>
@@ -126,6 +130,8 @@
               <% @review.favorite_users.each do |favorite_user| %>
                 <% if favorite_user.provider == "facebook" %>
                   <div class="features-icon"><%= link_to image_tag(favorite_user.icon, :class => "img-circle", :alt => "icon", :size => '70x70'), favorite_user %></div>
+                <% elsif !favorite_user.avator.nil? %>
+                  <div class="features-icon"><%= link_to image_tag(favorite_user.avator.to_s, :class => "img-circle", :alt => "icon", :size => '70x70'), favorite_user %></div>
                 <% else %>
                   <div class="features-icon"><%= link_to image_tag('imagsehttps://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => '70x70'), favorite_user %></div>
                 <% end %>

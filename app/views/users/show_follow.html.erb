@@ -11,6 +11,8 @@
   
   <% if (user.provider == "facebook") %>
     <%= image_tag user.icon, :class => "img-circle", :alt => "icon", :size => "100x100" %>
+  <% elsif !user.avator.nil? %>
+    <%= image_tag(user.avator.to_s, :class => "img-circle", :alt => "icon", :size => "100x100") %>   
   <% else %>
     <%= image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => "100x100") %>
   <% end %>

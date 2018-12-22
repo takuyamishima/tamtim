@@ -52,6 +52,7 @@
   </section>
 <% end %>
 
+
 <% if current_user && @user.id == current_user.id %>
   <% if @feed_items.any? %>
     <section class="" id="demos">
@@ -66,6 +67,8 @@
                           <div class="topicon">
                             <% if (review.user.provider == "facebook") %>
                               <%= image_tag review.user.icon, :class => "img-circle", :alt => "icon", :size => "70x70" %>
+                            <% elsif !review.user.avator.nil? %>
+                              <%= image_tag(review.user.avator.to_s, :class => "img-circle", :alt => "icon", :size => "70x70") %>
                             <% else %>
                               <%= image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => "70x70") %>
                             <% end %>
@@ -104,10 +107,10 @@
                           <%= render partial: 'comments/index_top', locals: { comments: @comments } %>
                         </div>
                       </div>            
-                      <%= review.created_at.strftime("%m月%d日") %>
+                      <div class="postday"><%= review.created_at.strftime("%m月%d日") %></div>
                       <% if user_signed_in? %>
                         <% unless review.user_id == current_user.id %>
-                        <div id="commentarea-<%= review.id %>" data-comment-id="<%= review.id %>"class="comment_border">
+                        <div id="commentarea-<%= review.id %>" data-comment-id="<%= review.id %>">
                           <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
                           <%= render partial: 'comments/form_top_before', locals: { comment: @comment, review: review } %>
                         </div>
@@ -127,6 +130,34 @@
   <% end %>
 </div><!--turbolinks-->
 
+<!--タグ機能
+        <% @tag.each do |tag| %>
+<section class="" id="demos">
+  <div class="container">
+    <center><h2>#<%= tag.name %>のTOPレビュアー</h2></center>
+    <div class="row multi-columns-row ">
+      <% @users.each do |user| %>
+      <% if user.tag == tag.name %>
+        <div class="col-md-3 col-sm-12 col-xs-12">
+          <div class="waku">
+            <div class="row">
+              <div class="col-sm-12 col-xs-12 topimage">
+                <% @new_reviews = user.reviews.order(created_at: :desc).limit(1) %>
+                <% @new_reviews.each do |new_review| %>
+                  <%= link_to image_tag(new_review.image.url, :class => "fit-imgtop"),new_review if new_review.image.url %>
+              </div>
+              <div class="col-sm-12 col-xs-4 topimage">
+                <%= link_to image_tag(new_review.image.url, :class => "fit-imgtop"),new_review if new_review.image.url %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+-->
 <% unless user_signed_in? %>
   <div class="module-small bg-dark">
     <div class="container">

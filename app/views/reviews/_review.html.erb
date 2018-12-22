@@ -2,8 +2,7 @@
   <div class="waku">
     <div class="row">
       <div class="col-sm-12 topimage">
-        <% review.images.each do |image| %>
-          <%= link_to image_tag(image.url, :class => "fit-imgtop"), review_path(review.id) if image.url %>
+        <%= link_to image_tag(review.image.url, :class => "fit-imgtop"), review_path(review.id) if review.image.url %>
       </div>
       <div class="col-sm-12 top_margin">
       </div>

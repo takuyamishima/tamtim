@@ -1,5 +1,5 @@
 <%= form_with(model: [review, comment] ) do |form| %>
-  <div class="form-group">
+  <div class="form-group comment_border">
     <%= form.text_area :content, class: "commentform form-control", placeholder: "コメントを追加…"  %>
   </div>
   <div class="comment_btn">

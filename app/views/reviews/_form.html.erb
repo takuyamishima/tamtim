@@ -17,6 +17,7 @@
 	      <i class="fas fa-images fa-3x"></i>
         <%= form.file_field :images, id: :review_images, multiple: true, style: 'display: none' %>
       </button>
+      <%= image_tag(@review.image.url, :size => '200x200') if @review.image.url %>
     </div>
 
     <div class="field">

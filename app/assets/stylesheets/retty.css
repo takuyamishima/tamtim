@@ -2,7 +2,6 @@
     border: solid 1px #e7e7e7;
     margin-top: 10px;
     margin-bottom: 10px;
-    
     background-color: #FFFFFF;
 }
 
@@ -493,4 +492,8 @@ textarea.review-content {
 .more {
   color: #999;
   font-weight: 600;
+}
+.postday {
+  margin-top: 5px;
+  padding-bottom: 10px;
 }

@@ -2935,13 +2935,13 @@ ul.bxslider {
   font-size: .85em;
   padding: 10px;
 }
-/* line 1, /Users/kawaidashinsuke/workspace/tamtim/app/assets/stylesheets/layout.scss */
+/* line 1, /home/ubuntu/workspace/tamtim/app/assets/stylesheets/layout.scss */
 .main-container {
   margin-top: 71px;
   margin-bottom: 74px;
 }
 
-/* line 6, /Users/kawaidashinsuke/workspace/tamtim/app/assets/stylesheets/layout.scss */
+/* line 6, /home/ubuntu/workspace/tamtim/app/assets/stylesheets/layout.scss */
 .footer {
   padding: 0px !important;
 }
@@ -2949,7 +2949,6 @@ ul.bxslider {
     border: solid 1px #e7e7e7;
     margin-top: 10px;
     margin-bottom: 10px;
-    
     background-color: #FFFFFF;
 }
 
@@ -3440,6 +3439,10 @@ textarea.review-content {
 .more {
   color: #999;
   font-weight: 600;
+}
+.postday {
+  margin-top: 5px;
+  padding-bottom: 10px;
 }
 /*--------------------------------------------------------------
 	Common

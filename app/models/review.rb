@@ -1,4 +1,5 @@
 class Review < ApplicationRecord
+    mount_uploader :image, ImageUploader
     mount_uploaders :images, ImageUploader
     validates :title, presence: true
     belongs_to :user, optional: true
