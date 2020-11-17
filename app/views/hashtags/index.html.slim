@@ -7,4 +7,4 @@ ul
     li
       = tag.name
 - @review.each do |review|
-  = render 'hashtags/tag_list', tag_list: review.skill_list.remove  unless review.skill_list.blank?
+  = render 'hashtags/tag_list', tag_list: review.skill_list.remove unless review.skill_list.blank?

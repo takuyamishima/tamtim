@@ -1,24 +1,24 @@
 .comments
-  - if @comments_number == 0 || current_user == nil
+  - if @comments_number.zero? || current_user.nil?
     h4.comment-title.font-alt
       | There are no comments
   - else
     h4.comment-title.font-alt
-      | There are 
+      | There are
       = @comments_number
       |  comments
   .comment.clearfix
-    - if current_user != nil
+    - unless current_user.nil?
       - comments.each do |comment|
         - unless comment.id.nil?
           .comment-avatar
-            - if (comment.user.provider == "facebook")
-              = image_tag comment.user.icon, :class => "img-circle", :alt => "icon", :size => "50x50"
+            - if comment.user.provider == "facebook"
+              = image_tag comment.user.icon, class: "img-circle", alt: "icon", size: "50x50"
             - else
-              = image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => "50x50")
+              = image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', class: "img-circle", alt: "icon", size: "50x50")
           .comment-content.clearfix
             .comment-author.font-alt
-              = link_to "#{comment.user.name}", user_path(comment.user.id)
+              = link_to comment.user.name.to_s, user_path(comment.user.id)
             .comment-body
               = comment.content
             .comment-meta.font-alt

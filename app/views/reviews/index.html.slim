@@ -1,11 +1,11 @@
 div[data-turbolinks="false"]
   .container
     - if params[:tag]
-      - header_tag = (params[:tag])
+      - header_tag = params[:tag]
       h1
         = header_tag
     - elsif params[:category_name]
-      - category_name = (params[:category_name])
+      - category_name = params[:category_name]
       h1
         = category_name
         | のレビュー一覧
@@ -21,49 +21,12 @@ div[data-turbolinks="false"]
               .waku
                 .grid.spbodyfont
                   .topicon
-                    - if (review.user.provider == "facebook")
-                      = image_tag review.user.icon, :class => "img-circle", :alt => "icon", :size => "70x70"
+                    - if review.user.provider == 'facebook'
+                      = image_tag review.user.icon, class: 'img-circle', alt: 'icon', size: '70x70'
                     - else
-                      = image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => "70x70")
+                      = image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', class: 'img-circle', alt: 'icon', size: '70x70')
                   .grid1
-                    = link_to review.title.truncate(19), review_path(review.id),class:"comment"
+                    = link_to review.title.truncate(19), review_path(review.id), class: 'comment'
                   .grid2
-                    = link_to review.user.name, user_path(id: review.user.id),class:"postname"
-                .post-thumbnail
-                  - if review.images.count > 1
-                    ul.slider
-
-                  - else
-                    ul.imageViewer
-
-                  - if review.image_url.present?
-                    = image_tag(review.image_url, :class => 'fit-imgtop')
-                  - review.images.each do |image|
-                    li
-                      = image_tag(image.to_s, :class => 'fit-imgtop')
-                .main-content
-                  .grid_iine
-                    .grid_iine_1
-                      | <i id="review-#{review.id}" data-review-id="review.id">
-                      = render "likes/like", review: review
-                      | </i>
-                    .grid_iine_2
-                      | <i id="comment-#{review.id}" data-comment-id="#{review.id}">
-                      = render "comments/comment", review: review
-                      | </i>
-                  .spbodyfont
-                    | <div id="reviewarea-{review.id}" data-reviewarea-id="review.id">
-                    = render partial: 'reviews/review2', locals: { review: review }
-                    | </div>
-                  .spbodyfont
-                    | <div id="comments_area-#{review.id}" data-comments_area-id="#{review.id}">
-                    - @comments = review.comments
-                    = render partial: 'comments/index_top', locals: { comments: @comments }
-                    | </div>
-                  .postday
-                    = review.created_at.strftime("%m月%d日")
-                  - if user_signed_in?
-                    - unless review.user_id == current_user.id
-                      |  <div id="commentarea-#{review.id}" data-comment-id="#{review.id}">
-                      = render partial: 'comments/form_top_before', locals: { comment: @comment, review: review }
-                      | </div>
+                    = link_to review.user.name, user_path(id: review.user.id), class: 'postname'
+                = render partial: 'reviews/card', locals: { review: review }

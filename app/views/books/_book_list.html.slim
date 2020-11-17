@@ -4,11 +4,11 @@
       .row
         .col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-6.col-xs-12
           .waku
-            = form_with(model: @review,  local: true,url:confirm_reviews_path) do |form|
+            = form_with(model: @review, local: true, url: confirm_reviews_path) do |form|
               - if book.image_url.present?
-                = image_submit_tag(book.image_url, :class => 'fit-imgtop')
+                = image_submit_tag(book.image_url, class: 'fit-imgtop')
               = book.title
-              = form.hidden_field :title,value: book.title
-              = form.hidden_field :image_url,value: book.image_url
-              = form.hidden_field :amazon_url,value: book.url
-              = form.hidden_field :asin,value: book.asin
+              = form.hidden_field :title, value: book.title
+              = form.hidden_field :image_url, value: book.image_url
+              = form.hidden_field :amazon_url, value: book.url
+              = form.hidden_field :asin, value: book.asin

@@ -3,8 +3,7 @@ ul.margin_padding_0
     - unless comment.id.nil?
       li
         span.comment
-          = link_to "#{comment.user.name}", user_path(comment.user.id)
+          = link_to comment.user.name.to_s, user_path(comment.user.id)
         = comment.content
-        - if user_signed_in?
-          - if comment.review.user_id == current_user.id || comment.user_id == current_user.id
-            = link_to '×', review_comment_path(comment.review_id, comment.id),method: :delete, remote: true
+        - if user_signed_in? && comment.review.user_id == current_user.id || comment.user_id == current_user.id
+          = link_to '×', review_comment_path(comment.review_id, comment.id), method: :delete, remote: true

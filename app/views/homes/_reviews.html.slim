@@ -4,23 +4,23 @@
       .col-sm-4.col-xs-4
         - if user.provider == "facebook"
           .features-icon
-            = link_to image_tag(user.icon, :class => "img-circle", :alt => "icon", :size => '70x70'), user
+            = link_to image_tag(user.icon, class: "img-circle", alt: "icon", size: '70x70'), user
         - else
           .features-icon
-            = link_to image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => '70x70'), user
+            = link_to image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', class: "img-circle", alt: "icon", size: '70x70'), user
       .col-sm-8.col-xs-8
         h2.features-title.font-alt.hidari
           = link_to user.name, user
       .col-sm-12.col-xs-12.topprofile
-        = user.profile.truncate(50) if user.profile
+        = user&.profile&.truncate(50)
       .col-sm-12.col-xs-12.topimage
         .dashed
         - @new_reviews = user.reviews.order(created_at: :desc).limit(1)
         - @new_reviews.each do |new_review|
           .toptitle
-            = link_to new_review.title,new_review
+            = link_to new_review.title, new_review
           - new_review.images.each do |image|
-            = link_to image_tag(image.to_s, :class => "fit-imgtop"),new_review if image.to_s
+            = link_to image_tag(image.to_s, class: "fit-imgtop"), new_review if image.to_s
       .col-sm-12.col-xs-12
         .hidari.gold
           = link_to 'レビューをもっと見る       >'.html_safe, user, { class: "gold" }

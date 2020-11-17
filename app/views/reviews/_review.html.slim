@@ -3,17 +3,17 @@
     .row
       .col-sm-12.topimage
         - review.images.each do |image|
-          = link_to image_tag(image.url, :class => "fit-imgtop"), review_path(review.id) if image.url
+          = link_to image_tag(image.url, class: 'fit-imgtop'), review_path(review.id) if image.url
       .col-sm-12.top_margin
 
       .col-sm-4.col-xs-4
         .features-icon
-          - if (review.user.provider == "facebook")
-            = image_tag review.user.icon, :class => "img-circle", :alt => "icon", :size => "70x70"
+          - if review.user.provider == 'facebook'
+            = image_tag review.user.icon, class: 'img-circle', alt: 'icon', size: '70x70'
           - elsif !review.user.avator.nil?
-            = image_tag(review.user.avator.to_s, :class => "img-circle", :alt => "icon", :size => "70x70")
+            = image_tag(review.user.avator.to_s, class: 'img-circle', alt: 'icon', size: '70x70')
           - else
-            = image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size => "70x70")
+            = image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', class: 'img-circle', alt: 'icon', size: '70x70')
       .col-sm-8.col-xs-8
         .post-header.font-alt
           h2.features-title.font-alt
@@ -22,5 +22,5 @@
         .post-meta
           | By 
           = link_to review.user.name, user_path(id: review.user.id)
-          | 投稿日時: 
+          | 投稿日時:
           = review.created_at.strftime("%Y年%m月%d日")

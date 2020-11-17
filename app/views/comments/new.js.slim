@@ -1,5 +1,5 @@
 | $("#commentarea-
 = @review.id
 | ").html("
-= escape_javascript(render "comments/form_top", comment: @comment, review: @review)
-| "); 
+= escape_javascript((render "comments/form_top", comment: @comment, review: @review))
+| ");

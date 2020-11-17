@@ -1,5 +1,5 @@
 | $("#review-
 = @review.id
 |  .like").html("
-= escape_javascript(render "likes/like", review: @review)
+= escape_javascript((render "likes/like"), review: @review)
 | ");

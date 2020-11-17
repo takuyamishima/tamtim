@@ -1,7 +1,7 @@
 .comment-form
   h4.comment-form-title.font-alt
     | Add your comment
-  = form_with(model: [review, comment] ) do |form|
+  = form_with(model: [review, comment]) do |form|
     .form-group
       = form.text_area :content, class: "form-control"
     = form.submit "コメントをする", class: "btn btn-round btn-d"

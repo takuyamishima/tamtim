@@ -10,7 +10,7 @@
   span.stat
     |  <a href="
     = followers_user_path(@user)
-    | "> 
+    | ">
     span.stat
       | フォロワー
     span.FollowCount
@@ -20,7 +20,7 @@
 .stats
   |  <a href="
   = following_user_path(@user)
-  | "> 
+  | ">
   span.FollowCount
     = @user.followings.count
   span.stat

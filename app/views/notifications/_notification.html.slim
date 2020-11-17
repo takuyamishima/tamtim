@@ -1,16 +1,13 @@
-- if  notification.notified_type == 'フォロー'
-  - message = 'あなたを'
-- else
-  - message = 'あなたの記事に'
+- message = notification.notified_type == 'フォロー' ? 'あなたを' : 'あなたの記事に'
 li
   = link_to link_through_path(notification) do
     - if notification.notified_by.provider == 'facebook'
-      = image_tag(notification.notified_by.icon, :class => "img-circle", :alt => "icon", :size =>"25x25")
+      = image_tag(notification.notified_by.icon, class: 'img-circle', alt: 'icon', size: '25x25')
     - else
-      = image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', :class => "img-circle", :alt => "icon", :size =>"25x25")
+      = image_tag('https://s3-ap-northeast-1.amazonaws.com/tamtim/uploads/default.png', class: 'img-circle', alt: 'icon', size: '25x25')
     = notification.notified_by.name
     | さんが
     br
     = message
     = notification.notified_type
-    | しました 
+    | しました

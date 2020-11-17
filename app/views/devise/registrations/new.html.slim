@@ -15,15 +15,15 @@ section.module-small
             .field.col-md-12
               = f.label :email
               br
-              = f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control"
+              = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
             .field.col-md-12
               = f.label :password
-              = f.password_field :password, autocomplete: "off", placeholder: "８文字以上の英数字", :class => "form-control"
+              = f.password_field :password, autocomplete: "off", placeholder: "８文字以上の英数字", class: "form-control"
             .field.col-md-12
-              = f.check_box :accepted , {}, checked_value = "true", unchecked_value = "false"
-              = link_to "利用規約",'/rule'
+              = f.check_box :accepted, {}, checked_value: "true", unchecked_value: "false"
+              = link_to "利用規約", '/rule'
               |  に同意する
             .actions
-              = f.submit "登録する（無料）", :class => "btn btn-default"
+              = f.submit "登録する（無料）", class: "btn btn-default"
         br
         = render "devise/shared/links"

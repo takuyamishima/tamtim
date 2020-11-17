@@ -5,7 +5,7 @@
         #search-box
           = form_tag('/books/search', method: :get) do
             .input-group
-              = text_field_tag :book, "",  id: "book_search", name: "keyword", placeholder: "商品名を入力してください", class: "search-box"
+              = text_field_tag :book, "", id: "book_search", name: "keyword", placeholder: "商品名を入力してください", class: "search-box"
               span.input-group-btn
                 = button_tag '検索', class: 'btn btn btn-primary'
           h2

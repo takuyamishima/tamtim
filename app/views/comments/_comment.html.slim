@@ -1,5 +1,5 @@
 - if user_signed_in?
-  = link_to new_review_comment_path(review.id),class: "btn btn-link btn-xs ",remote: true do
+  = link_to new_review_comment_path(review.id), class: "btn btn-link btn-xs ", remote: true do
     span
       i.far.fa-comment
         = review.comments.count

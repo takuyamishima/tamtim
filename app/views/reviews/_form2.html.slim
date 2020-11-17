@@ -12,7 +12,7 @@
     .row.editorFunctionButton
       .row.col-xs-8
         .form-group.categoryForm
-          = form.collection_select(:category_name, Category.all, :category_name, :category_name, :include_blank => 'カテゴリ')
+          = form.collection_select(:category_name, Category.all, :category_name, :category_name, include_blank: 'カテゴリ')
       .row.col-xs-8
         .form-group
           = text_field_tag 'review[skill_list]', @review.skill_list.join(','), placeholder: "タグ："
@@ -22,14 +22,38 @@
     .row.form-group
       #preview
     .row.form-group
-      = image_tag(@review.image_url, :class => 'fit-imgtop')
+      = image_tag(@review.image_url, class: 'fit-imgtop')
       = form.submit "レビューを投稿する", class: "btn btn-round btn-d  pull-right"
     .row.form-group
       = form.text_field :title, class: 'review-title form-control', placeholder: "レビュータイトル", autocomplete: "off"
     .row.form-group
-      = form.text_area :content, :class => "review-content form-control", :id => "review-content", placeholder: "レビュー本文"
+      = form.text_area :content, class: 'review-content form-control', id: 'review-content', placeholder: 'レビュー本文'
       = form.hidden_field :image_url
 script
-  |  document.getElementById('select_images').onclick = function() { document.getElementById("review_images").click(); }; 
+  | document.getElementById('select_images').onclick = function() { document.getElementById("review_images").click(); };
 script
-  |  function Filepreview(evt){ var files = evt.target.files; document.getElementById('preview').innerHTML ="" for(var i = 0; i < 3;i++){ var reader = new FileReader(); var f = files[i] reader.onload = (function(){ return function(e) { var span = document.createElement('span'); span.innerHTML= "<img src='" +e.target.result + "'>"; document.getElementById('preview').insertBefore(span,null); }; })(f); reader.readAsDataURL(f); } } document.getElementById('review_images').addEventListener('change',Filepreview,false); 
+  | function Filepreview(evt){
+      var files = evt.target.files;
+
+      document.getElementById('preview').innerHTML = "";
+
+      for(var i = 0; i < 3;i++){
+        var reader = new FileReader();
+        var f = files[i]
+
+        reader.onload = (
+          function(){
+            return function(e) {
+              var span = document.createElement('span');
+
+              span.innerHTML= "<img src='" +e.target.result + "'>";
+
+              document.getElementById('preview').insertBefore(span,null);
+            };
+          }
+        )
+        (f);
+        reader.readAsDataURL(f);
+      }
+    }
+    document.getElementById('review_images').addEventListener('change',Filepreview,false);

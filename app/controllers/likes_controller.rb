@@ -2,13 +2,13 @@ class LikesController < ApplicationController
   after_action :create_notifications, only: [:create]
 
   def create
-    @review = Review.find(params[:review_id])
+    @review = Review.find(params[:like][:review_id])
     unless @review.iine?(current_user)
       @review.iine(current_user)
       @review.reload
       respond_to do |format|
         format.html { redirect_to request.referrer || root_url }
-        format.js
+        format.js { redirect_to request.referrer || root_url }
       end
     end
   end
@@ -20,7 +20,7 @@ class LikesController < ApplicationController
       @review.reload
       respond_to do |format|
         format.html { redirect_to request.referrer || root_url }
-        format.js
+        format.js { redirect_to request.referrer || root_url }
       end
     end
   end

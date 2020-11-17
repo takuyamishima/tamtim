@@ -11,20 +11,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super do |resource|
-      if resource.valid?
-        notifier = Slack::Notifier.new(Rails.application.config.slack_webhook_url)
-        attachments = {
-          title: '新規登録がありました！',
-          text: <<~TEXT
-          新規で#{resource.name}さんが登録されました🎉
-          フォローしましょう!
-          https://www.ichioshi.tokyo/users/#{resource.id}
-          TEXT
-        }
-        notifier.post attachments: [attachments]
-      end
-    end
+    super
+    # super do |resource|
+    #   if resource.valid?
+    #     notifier = Slack::Notifier.new(Rails.application.config.slack_webhook_url)
+    #     attachments = {
+    #       title: '新規登録がありました！',
+    #       text: <<~TEXT
+    #       新規で#{resource.name}さんが登録されました🎉
+    #       フォローしましょう!
+    #       https://www.ichioshi.tokyo/users/#{resource.id}
+    #       TEXT
+    #     }
+    #     notifier.post attachments: [attachments]
+    #   end
+    # end
   end
 
   # GET /resource/edit

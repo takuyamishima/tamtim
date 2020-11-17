@@ -1,0 +1,56 @@
+.post-thumbnail
+  - if review.images.present?
+    - if review.images.count > 1
+      ul.slider
+    - else
+      ul.imageViewer
+    - review.images.each do |image|
+      li
+      - if image.url.present?
+        = image_tag(image.url, class: 'fit-imgtop')
+      - else
+        = image_tag(image.to_s, class: 'fit-imgtop')
+  .main-content
+    .grid_iine
+      .grid_iine_1
+        | <i id="review-#{review.id}" data-review-id="#{review.id}">
+        span.like
+          - if review.iine?(current_user)
+            = form_for(review.likes.find_by(user_id: current_user.id), method: :delete, remote: true) do |f|
+              = f.button class: "btn btn-link btn-xs" do
+                = content_tag :span, review.likes_count.to_s, style: "color:red", class: "far fa-heart"
+          - else
+            = form_for(review.likes.build, remote: true) do |f|
+              div
+                = f.hidden_field :review_id, value: review.id
+              = f.button class: "btn btn-link btn-xs" do
+                = content_tag :span, review.likes_count.to_s, class: 'far fa-heart'
+        | </i>
+      .grid_iine_2
+        | <i id="comment-#{review.id}" data-comment-id="review.id">
+        - if user_signed_in?
+          = link_to new_review_comment_path(review.id), class: "btn btn-link btn-xs ", remote: true do
+            span
+              i.far.fa-comment
+                = review.comments.count
+        - else
+          span
+            i.far.fa-comment
+              = review.comments.count
+        | </i>
+    .spbodyfont
+      | <div id="reviewarea-#{review.id}" data-reviewarea-id="#{review.id}">
+      - if review.content.size > 100
+        p = review.content.truncate(100)
+        = link_to '続きを読む', review_path(review.id), class: 'more', remote: true
+      - else
+        p = review.content
+      | </div>
+    .spbodyfont
+      | <div id="comments_area-#{review.id}" data-comments_area-id="#{review.id}">
+      - @comments = review.comments
+       = render partial: 'comments/index_top'
+      | </div>
+      | </div>
+    .postday
+      = review.created_at.strftime('%m月%d日')

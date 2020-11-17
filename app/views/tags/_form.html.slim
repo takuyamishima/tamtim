@@ -1,7 +1,6 @@
-= form_for @resource, url: {action: 'update_tags', method: :patch} do |f|
-    = f.text_field :add_tags, :value => nil, :class => 'add_tag'
-    - @resource.tag_counts.each do |tag|
-        = f.check_box :tag_list, 
-            { multiple: true, checked: @resource.tag_list.include?(tag.to_s) }, tag, nil
-        = f.label tag, tag, class: 'tag'
-        = f.submit
+= form_for @resource, url: { action: 'update_tags', method: :patch } do |f|
+  = f.text_field :add_tags, value: nil, class: 'add_tag'
+  - @resource.tag_counts.each do |tag|
+    = f.check_box :tag_list, { multiple: true, checked: @resource.tag_list.include?(tag.to_s) }, tag, nil
+    = f.label tag, tag, class: 'tag'
+    = f.submit

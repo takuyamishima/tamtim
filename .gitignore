@@ -42,3 +42,13 @@ doc/
 .DS_Store
 .idea
 .secret
+
+/config/credentials/development.key
+
+/.cert/server.key
+
+/config/credentials/staging.key
+
+/config/credentials/production.key
+
+/config/credentials/test.key

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get 'notifications/link_through'
   get 'notifications/:id/link_through', to: 'notifications#link_through', as: :link_through
   get 'likes/create'
@@ -35,5 +36,4 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: [:create, :destroy]
-
 end

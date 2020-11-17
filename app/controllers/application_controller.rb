@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_host
-    ActionMailer::Base.default_url_options = {:host => "https://" + request.host_with_port}
+    ActionMailer::Base.default_url_options = { :host => "https://" + request.host_with_port }
   end
 end

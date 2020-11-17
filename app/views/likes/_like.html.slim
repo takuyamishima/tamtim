@@ -1,11 +1,11 @@
 span.like
   - if review.iine?(current_user)
     = form_for(review.likes.find_by(user_id: current_user.id), method: :delete, remote: true) do |f|
-      = button_tag(class: "btn btn-link btn-xs") do
-        = content_tag :span, "#{review.likes_count}", :style=>"color:red",:class => "far fa-heart"
+      = f.button class: "btn btn-link btn-xs" do
+        = content_tag :span, review.likes_count.to_s, style: "color:red", class: "far fa-heart"
   - else
     = form_for(review.likes.build, remote: true) do |f|
       div
-        = hidden_field_tag :review_id, review.id
-      = button_tag(class: "btn btn-link btn-xs") do
-        = content_tag :span, "#{review.likes_count}",  :class => "far fa-heart"
+        = f.hidden_field :review_id, value: review.id
+      = f.button class: "btn btn-link btn-xs" do
+        = content_tag :span, review.likes_count.to_s, class: 'far fa-heart'

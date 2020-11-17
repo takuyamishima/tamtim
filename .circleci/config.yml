@@ -1,0 +1,67 @@
+version: 2.1
+
+orbs:
+  rails: medpeer/rails@1.2.0
+
+executors:
+  ruby:
+    docker:
+      - image: &docker_ruby circleci/ruby:2.7.2-node-browsers
+    environment:
+      RAILS_ENV: test
+  ruby_with_db:
+    docker:
+      - image: *docker_ruby
+      - image: circleci/postgres:12.4-ram
+        environment:
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    environment:
+      DATABSE_URL: 'postgres://postgres:postgres@127.0.0.1:5432'
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      RAILS_ENV: test
+
+jobs:
+  rubocop:
+    executor: ruby
+    steps:
+      - checkout
+
+      - rails/bundle-install:
+          restore_only: true
+
+      - run: bundle exec rubocop --parallel
+  slim-lint:
+    executor: ruby
+    steps:
+      - checkout
+
+      - rails/bundle-install:
+          restore_only: true
+
+      - run: bundle exec slim-lint app/views/
+
+workflows:
+  rspec:
+    jobs:
+      - rails/rb-deps:
+          executor: ruby
+      - rails/js-deps:
+          executor: ruby
+      - rails/assets:
+          executor: ruby
+          requires:
+            - rails/rb-deps
+            - rails/js-deps
+      - rubocop:
+          requires:
+            - rails/rb-deps
+      - slim-lint:
+          requires:
+            - rails/rb-deps
+      - rails/rspec:
+          executor: ruby_with_db
+          db-port: '5432'
+          requires:
+            - rails/assets

@@ -1,5 +1,0 @@
-- if review.content.size > 100
-  p = review.content.truncate(100)
-  = link_to '続きを読む',review_path(review.id) ,class: 'more' ,remote: true
-- else
-  p = review.content
